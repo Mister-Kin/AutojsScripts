@@ -29,7 +29,7 @@ function GetDailyPoints() {
         var detect_get_all_button = text("全部领取").findOnce();
         if (detect_get_all_button) {
             detect_get_all_button.click();
-            sleep(5000);
+            sleep(8000);
             // 这个控件一直存在，无法检测是否真的有其他积分。当无其他积分时，APP本身会有气泡提示「网络异常」。
             log("已领取「其他」积分");
         }

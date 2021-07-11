@@ -3,7 +3,7 @@ auto.waitFor();
 // 脚本信息设定
 var task_name = "京东签到";
 var app_name = "京东";
-var waiting_time = 22; // 启动 APP 的等待时间，单位为秒
+var waiting_time = 28; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
 var CommonModules = require('CommonModules.js');
 CommonModules.StartLog(task_name);

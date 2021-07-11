@@ -24,9 +24,7 @@ function GetDailyGoldCoin() {
         detect_get_gold_coin_button.click();
         sleep(15000);
         back();
-        sleep(5000);
-        back();
-        sleep(5000);
+        sleep(8000);
         log("已领取「淘金币」");
     }
     else {
