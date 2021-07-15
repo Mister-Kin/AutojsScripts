@@ -26,7 +26,7 @@ function DailySign() {
         if (detect_sign_at_once_button) {
             detect_sign_at_once_button.parent().click();
             sleep(5000);
-            log("完成「每日签到」");
+            log("已完成「每日签到」");
         }
         else {
             toastLog("未检测到「立即签到」按钮");
