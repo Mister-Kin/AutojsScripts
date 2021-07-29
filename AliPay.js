@@ -22,6 +22,8 @@ function GetDailyPoints() {
     var detect_mine_button = text("我的").findOnce();
     if (detect_mine_button) {
         detect_mine_button.parent().parent().click();
+        sleep(1000);
+        detect_mine_button.parent().click();
         sleep(5000);
         // 点击“支付宝会员”按钮
         click(850, 512);
@@ -59,6 +61,8 @@ function GetDailyGoldBill() {
     var detect_mine_button = text("理财").findOnce();
     if (detect_mine_button) {
         detect_mine_button.parent().parent().click();
+        sleep(1000);
+        detect_mine_button.parent().click();
         sleep(5000);
         var detect_weekly_profit_button = id("com.alipay.android.widget.fortunehome:id/weekly_profit_container").findOnce();
         if (detect_weekly_profit_button) {
