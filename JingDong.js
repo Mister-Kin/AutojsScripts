@@ -21,7 +21,7 @@ function GetDailyBeans() {
     var detect_get_beans_button = text("领京豆").findOnce();
     if (detect_get_beans_button) {
         detect_get_beans_button.parent().click();
-        sleep(8000);
+        sleep(15000);
         var detect_sign_to_get_beans_button = text("签到领京豆").findOnce();
         if (detect_sign_to_get_beans_button) {
             click(detect_sign_to_get_beans_button.bounds().centerX(), detect_sign_to_get_beans_button.bounds().centerY());

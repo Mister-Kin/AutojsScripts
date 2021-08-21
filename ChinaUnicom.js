@@ -21,7 +21,7 @@ function DailySign() {
     var detect_sign_button = id("com.sinovatech.unicom.ui:id/home_qiandao_image").findOnce();
     if (detect_sign_button) {
         detect_sign_button.click();
-        sleep(8000);
+        sleep(15000);
         var detect_sign_at_once_button = text("立即签到").findOnce();
         if (detect_sign_at_once_button) {
             detect_sign_at_once_button.parent().click();
