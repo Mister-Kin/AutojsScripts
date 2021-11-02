@@ -1,11 +1,11 @@
 auto.waitFor();
 // ----------------------------
 // 脚本信息设定
-var task_name = "淘宝签到";
-var app_name = "淘宝";
-var waiting_time = 30; // 启动 APP 的等待时间，单位为秒
+let task_name = "淘宝签到";
+let app_name = "淘宝";
+let waiting_time = 30; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
-var CommonModules = require('CommonModules.js');
+let CommonModules = require('CommonModules.js');
 CommonModules.StartLog(task_name);
 CommonModules.RunApp(app_name, waiting_time);
 // ----------------------------
@@ -19,7 +19,7 @@ home();
 exit();
 
 function GetDailyGoldCoin() {
-    var detect_get_gold_coin_button = desc("领淘金币").findOnce();
+    let detect_get_gold_coin_button = desc("领淘金币").findOnce();
     if (detect_get_gold_coin_button) {
         detect_get_gold_coin_button.click();
         sleep(15000);
@@ -33,7 +33,7 @@ function GetDailyGoldCoin() {
 }
 
 function BonusSign() {
-    detect_sign_button = desc("签到").findOnce();
+    let detect_sign_button = desc("签到").findOnce();
     if (detect_sign_button) {
         click(detect_sign_button.bounds().centerX(), detect_sign_button.bounds().centerY());
         sleep(8000);
