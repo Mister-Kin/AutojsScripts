@@ -26,10 +26,10 @@ function GetDailyPoints() {
         if (detect_points_centre_button) {
             detect_points_centre_button.parent().parent().click();
             sleep(8000);
-            log("已领取「签到的云贝」");
+            console.log("已领取「签到的云贝」");
         }
         else {
-            toastLog("未检测到「云贝中心」按钮");
+            console.error("未检测到「云贝中心」按钮");
         }
         let detect_points_from_listening_music = text("听音乐30分钟").find();
         if (detect_points_from_listening_music.nonEmpty()) {
@@ -38,13 +38,13 @@ function GetDailyPoints() {
                 sleep(8000);
             }
             );
-            log("已领取「听音乐的云贝」");
+            console.log("已领取「听音乐的云贝」");
         }
         else {
-            toastLog("未检测到「听音乐30分钟」按钮");
+            console.log("未检测到「听音乐30分钟」按钮");
         }
     }
     else {
-        toastLog("未检测到「抽屉菜单」按钮");
+        console.error("未检测到「抽屉菜单」按钮");
     }
 }

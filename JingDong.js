@@ -26,13 +26,13 @@ function GetDailyBeans() {
         if (detect_sign_to_get_beans_button) {
             click(detect_sign_to_get_beans_button.bounds().centerX(), detect_sign_to_get_beans_button.bounds().centerY());
             sleep(5000);
-            log("已领取「京豆」");
+            console.log("已领取「京豆」");
         }
         else {
-            toastLog("未检测到「签到领京豆」按钮");
+            console.error("未检测到「签到领京豆」按钮");
         }
     }
     else {
-        toastLog("未检测到首页「领京豆」按钮");
+        console.error("未检测到首页「领京豆」按钮");
     }
 }

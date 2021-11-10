@@ -31,10 +31,10 @@ CommonModules.RunApp = function (app_name, waiting_time) {
     let state = shell("am start -n " + app_package_name + "/" + app_main_activity, true);
     if (state.code == 0) {
         sleep(waiting_time * 1000);
-        log("已运行「" + app_name + "」");
+        console.log("已运行「" + app_name + "」");
     }
     else {
-        log("运行" + app_name + "失败");
+        console.error("运行" + app_name + "失败");
     }
 };
 
@@ -50,27 +50,27 @@ CommonModules.StopApp = function (app_name) {
         if (detect_confirm_button) {
             detect_confirm_button.click();
             sleep(5000);
-            log("已停止「" + app_name + "」");
+            console.log("已停止「" + app_name + "」");
         }
         else {
-            toastLog("未检测到「确定」按钮：未能停止「" + app_name + "」");
+            console.error("未检测到「确定」按钮：未能停止「" + app_name + "」");
         }
     }
     else {
-        toastLog("未检测到「强行停止」按钮：未能停止「" + app_name + "」");
+        console.error("未检测到「强行停止」按钮：未能停止「" + app_name + "」");
     }
 };
 
 CommonModules.StartLog = function (task_name) {
-    log("----------------------------------");
-    log("开始「" + task_name + "」任务");
-    log("----------------------------------");
+    console.log("----------------------------------");
+    console.log("开始「" + task_name + "」任务");
+    console.log("----------------------------------");
 };
 
 CommonModules.EndLog = function (task_name) {
-    log("----------------------------------");
-    log("结束「" + task_name + "」任务");
-    log("----------------------------------");
+    console.log("----------------------------------");
+    console.log("结束「" + task_name + "」任务");
+    console.log("----------------------------------");
 };
 
 module.exports = CommonModules;

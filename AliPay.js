@@ -33,27 +33,27 @@ function GetDailyPoints() {
             detect_get_all_button.click();
             sleep(8000);
             // 这个控件一直存在，无法检测是否真的有其他积分。当无其他积分时，APP本身会有气泡提示「网络异常」。
-            log("已领取「其他」积分");
+            console.log("已领取「其他」积分");
         }
         else {
-            toastLog("未检测到「全部领取」按钮");
+            console.log("未检测到「全部领取」按钮");
         }
         let detect_daily_sign_button = text("每日签到").findOnce();
         if (detect_daily_sign_button) {
             detect_daily_sign_button.parent().click();
             sleep(5000);
-            log("已领取「每日签到」积分");
+            console.log("已领取「每日签到」积分");
             back();
             sleep(5000);
             back();
             sleep(5000);
         }
         else {
-            toastLog("未检测到「每日签到」按钮");
+            console.error("未检测到「每日签到」按钮");
         }
     }
     else {
-        toastLog("未检测到「我的」按钮");
+        console.error("未检测到「我的」按钮");
     }
 }
 
@@ -72,17 +72,17 @@ function GetDailyGoldBill() {
             if (detect_get_daily_gold_button) {
                 detect_get_daily_gold_button.parent().click();
                 sleep(5000);
-                log("已领取「黄金票」");
+                console.log("已领取「黄金票」");
             }
             else {
-                toastLog("未检测到「每天领黄金」的按钮");
+                console.error("未检测到「每天领黄金」的按钮");
             }
         }
         else {
-            toastLog("未检测到「每周收益」按钮");
+            console.error("未检测到「每周收益」按钮");
         }
     }
     else {
-        toastLog("未检测到「理财」按钮");
+        console.error("未检测到「理财」按钮");
     }
 }

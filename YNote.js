@@ -21,10 +21,10 @@ exit();
 function CloseAd() {
     let detect_close_ad_button = id("com.youdao.note:id/ad_close").findOnce();
     if (detect_close_ad_button) {
-        log("检测到弹出式广告");
+        console.log("检测到弹出式广告");
         detect_close_ad_button.click();
         sleep(3000);
-        log("已关闭弹出式广告");
+        console.log("已关闭弹出式广告");
     }
 }
 
@@ -33,18 +33,18 @@ function GetDailyDiskSpace() {
     if (detect_mine_button) {
         detect_mine_button.parent().click();
         sleep(5000);
-        log("已领取「登录奖励空间」");
+        console.log("已领取「登录奖励空间」");
         let detect_sign_to_get_disk_space_button = text("签到得空间").findOnce();
         if (detect_sign_to_get_disk_space_button) {
             detect_sign_to_get_disk_space_button.click();
             sleep(5000);
-            log("已领取「签到奖励空间」");
+            console.log("已领取「签到奖励空间」");
         }
         else {
-            toastLog("未检测到「签到得空间」按钮");
+            console.error("未检测到「签到得空间」按钮");
         }
     }
     else {
-        toastLog("未检测到「我的」按钮");
+        console.error("未检测到「我的」按钮");
     }
 }

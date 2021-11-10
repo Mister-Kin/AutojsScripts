@@ -25,10 +25,10 @@ function GetDailyGoldCoin() {
         sleep(15000);
         back();
         sleep(8000);
-        log("已领取「淘金币」");
+        console.log("已领取「淘金币」");
     }
     else {
-        toastLog("未检测到「领淘金币」按钮");
+        console.error("未检测到「领淘金币」按钮");
     }
 }
 
@@ -37,9 +37,9 @@ function BonusSign() {
     if (detect_sign_button) {
         click(detect_sign_button.bounds().centerX(), detect_sign_button.bounds().centerY());
         sleep(8000);
-        log("已领取「签到红包」");
+        console.log("已领取「签到红包」");
     }
     else {
-        toastLog("未检测到「签到」按钮");
+        console.error("未检测到「签到」按钮");
     }
 }

@@ -8,10 +8,10 @@ let detect_clear_all_button = id("com.android.systemui:id/recent_igmbutton_clear
 if (detect_clear_all_button) {
     detect_clear_all_button.click();
     sleep(5000);
-    log("已清理「最近应用」");
+    console.log("已清理「最近应用」");
 }
 else {
-    toastLog("未检测到「清理」按钮");
+    console.log("未检测到「清理」按钮");
 }
 CommonModules.EndLog(task_name);
 home();

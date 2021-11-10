@@ -29,16 +29,16 @@ function EntryTab(tab_name) {
             if (element.id() == "com.mihoyo.hyperion:id/mHomeTabItemTvTitle") {
                 element.parent().click();
                 sleep(5000);
-                log("已进入「" + tab_name + "」标签页");
+                console.log("已进入「" + tab_name + "」标签页");
                 break;
             }
             if (index == detect_tab_button.length - 1) {
-                toastLog("未检测到「" + tab_name + "」按钮");
+                console.error("未检测到「" + tab_name + "」按钮");
             }
         }
     }
     else {
-        toastLog("未检测到「" + tab_name + "」文字");
+        console.error("未检测到「" + tab_name + "」文字");
     }
 }
 
@@ -49,10 +49,10 @@ function DailySign() {
         sleep(8000);
         back();
         sleep(5000);
-        log("已完成「讨论区签到」");
+        console.log("已完成「讨论区签到」");
     }
     else {
-        toastLog("未检测到「未签到」按钮，讨论区已签到过");
+        console.info("未检测到「未签到」按钮，讨论区已签到过");
     }
 }
 
@@ -69,13 +69,13 @@ function GetHonkaiImpact3rdDailyBonus() {
         if (detect_date_button) {
             detect_date_button.parent().click();
             sleep(5000);
-            log("已领取「" + date_text + "」的福利补给");
+            console.log("已领取「" + date_text + "」的福利补给");
         }
         else {
-            toastLog("未检测到「" + date_text + "」按钮");
+            console.error("未检测到「" + date_text + "」按钮");
         }
     }
     else {
-        toastLog("未检测到「福利补给」按钮");
+        console.error("未检测到「福利补给」按钮");
     }
 }

@@ -22,9 +22,9 @@ function DailySign() {
     if (detect_sign_button) {
         detect_sign_button.click();
         sleep(15000);
-        log("已完成「每日签到」");
+        console.log("已完成「每日签到」");
     }
     else {
-        toastLog("未检测到首页「签到」按钮");
+        console.error("未检测到首页「签到」按钮");
     }
 }
