@@ -1,24 +1,23 @@
-auto.waitFor();
 // ----------------------------
 // 脚本信息设定
 let task_name = "有道云笔记签到";
 let app_name = "有道云笔记";
 let waiting_time = 20; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
-let CommonModules = require('CommonModules.js');
-CommonModules.StartLog(task_name);
-CommonModules.RunApp(app_name, waiting_time);
+let common = require('common.js');
+common.startLog(task_name);
+common.runApp(app_name, waiting_time);
 // ----------------------------
 // 脚本自定义函数
-CloseAd();
-GetDailyDiskSpace();
+closeAd();
+getDailyDiskSpace();
 // ----------------------------
-CommonModules.StopApp(app_name);
-CommonModules.EndLog(task_name);
+common.stopApp(app_name);
+common.endLog(task_name);
 home();
 exit();
 
-function CloseAd() {
+function closeAd() {
     let detect_close_ad_button = id("com.youdao.note:id/ad_close").findOnce();
     if (detect_close_ad_button) {
         console.log("检测到弹出式广告");
@@ -28,7 +27,7 @@ function CloseAd() {
     }
 }
 
-function GetDailyDiskSpace() {
+function getDailyDiskSpace() {
     let detect_mine_button = text("我的").findOnce();
     if (detect_mine_button) {
         detect_mine_button.parent().click();

@@ -1,23 +1,22 @@
-auto.waitFor();
 // ----------------------------
 // 脚本信息设定
 let task_name = "京东签到";
 let app_name = "京东";
 let waiting_time = 28; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
-let CommonModules = require('CommonModules.js');
-CommonModules.StartLog(task_name);
-CommonModules.RunApp(app_name, waiting_time);
+let common = require('common.js');
+common.startLog(task_name);
+common.runApp(app_name, waiting_time);
 // ----------------------------
 // 脚本自定义函数
-GetDailyBeans();
+getDailyBeans();
 // ----------------------------
-CommonModules.StopApp(app_name);
-CommonModules.EndLog(task_name);
+common.stopApp(app_name);
+common.endLog(task_name);
 home();
 exit();
 
-function GetDailyBeans() {
+function getDailyBeans() {
     let detect_get_beans_button = text("领京豆").findOnce();
     if (detect_get_beans_button) {
         detect_get_beans_button.parent().click();

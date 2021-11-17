@@ -1,28 +1,27 @@
-auto.waitFor();
 // ----------------------------
 // 脚本信息设定
 let task_name = "米游社签到";
 let app_name = "米游社";
 let waiting_time = 20; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
-let CommonModules = require('CommonModules.js');
-CommonModules.StartLog(task_name);
-CommonModules.RunApp(app_name, waiting_time);
+let common = require('common.js');
+common.startLog(task_name);
+common.runApp(app_name, waiting_time);
 // ----------------------------
 // 脚本自定义函数
-EntryTab("崩坏：星穹铁道");
-DailySign();
-EntryTab("崩坏3");
-DailySign();
+entryTab("崩坏：星穹铁道");
+dailySign();
+entryTab("崩坏3");
+dailySign();
 likeAndGlance();
-GetHonkaiImpact3rdDailyBonus();
+getHonkaiImpact3rdDailyBonus();
 // ----------------------------
-CommonModules.StopApp(app_name);
-CommonModules.EndLog(task_name);
+common.stopApp(app_name);
+common.endLog(task_name);
 home();
 exit();
 
-function EntryTab(tab_name) {
+function entryTab(tab_name) {
     let detect_tab_button = text(tab_name).find();
     if (detect_tab_button.nonEmpty()) {
         for (let index = 0; index < detect_tab_button.length; index++) {
@@ -43,7 +42,7 @@ function EntryTab(tab_name) {
     }
 }
 
-function DailySign() {
+function dailySign() {
     let detect_not_sign_button = text("未签到").findOnce();
     if (detect_not_sign_button) {
         detect_not_sign_button.parent().click();
@@ -57,7 +56,7 @@ function DailySign() {
     }
 }
 
-function GetHonkaiImpact3rdDailyBonus() {
+function getHonkaiImpact3rdDailyBonus() {
     let detect_bonus_button = text("福利补给").findOnce();
     if (detect_bonus_button) {
         detect_bonus_button.parent().parent().click();

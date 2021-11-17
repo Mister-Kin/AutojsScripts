@@ -1,6 +1,6 @@
-let CommonModules = {};
+let common = {};
 
-CommonModules.RunApp = function (app_name, waiting_time) {
+common.runApp = function (app_name, waiting_time) {
     let app_package_name = getPackageName(app_name);
     let app_main_activity = ""
     switch (app_name) {
@@ -38,7 +38,7 @@ CommonModules.RunApp = function (app_name, waiting_time) {
     }
 };
 
-CommonModules.StopApp = function (app_name) {
+common.stopApp = function (app_name) {
     let app_package_name = getPackageName(app_name);
     openAppSetting(app_package_name);
     sleep(5000);
@@ -61,16 +61,16 @@ CommonModules.StopApp = function (app_name) {
     }
 };
 
-CommonModules.StartLog = function (task_name) {
+common.startLog = function (task_name) {
     console.log("----------------------------------");
     console.log("开始「" + task_name + "」任务");
     console.log("----------------------------------");
 };
 
-CommonModules.EndLog = function (task_name) {
+common.endLog = function (task_name) {
     console.log("----------------------------------");
     console.log("结束「" + task_name + "」任务");
     console.log("----------------------------------");
 };
 
-module.exports = CommonModules;
+module.exports = common;

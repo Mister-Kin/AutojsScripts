@@ -1,24 +1,23 @@
-auto.waitFor();
 // ----------------------------
 // 脚本信息设定
 let task_name = "支付宝签到";
 let app_name = "支付宝";
 let waiting_time = 30; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
-let CommonModules = require('CommonModules.js');
-CommonModules.StartLog(task_name);
-CommonModules.RunApp(app_name, waiting_time);
+let common = require('common.js');
+common.startLog(task_name);
+common.runApp(app_name, waiting_time);
 // ----------------------------
 // 脚本自定义函数
-GetDailyPoints();
-GetDailyGoldBill();
+getDailyPoints();
+getDailyGoldBill();
 // ----------------------------
-CommonModules.StopApp(app_name);
-CommonModules.EndLog(task_name);
+common.stopApp(app_name);
+common.endLog(task_name);
 home();
 exit();
 
-function GetDailyPoints() {
+function getDailyPoints() {
     let detect_mine_button = text("我的").findOnce();
     if (detect_mine_button) {
         detect_mine_button.parent().parent().click();
@@ -57,7 +56,7 @@ function GetDailyPoints() {
     }
 }
 
-function GetDailyGoldBill() {
+function getDailyGoldBill() {
     let detect_mine_button = text("理财").findOnce();
     if (detect_mine_button) {
         detect_mine_button.parent().parent().click();
