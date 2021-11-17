@@ -1,3 +1,6 @@
+var root_flag = true; // 手机已 root
+//var root_flag = false; // 手机未 root
+
 let common = {};
 
 common.runApp = function (app_name, waiting_time) {
@@ -28,17 +31,30 @@ common.runApp = function (app_name, waiting_time) {
         default:
             break;
     }
-    let state = shell("am start -n " + app_package_name + "/" + app_main_activity, true);
+    let state = shell("am start -n " + app_package_name + "/" + app_main_activity, root_flag);
     if (state.code == 0) {
         sleep(waiting_time * 1000);
         console.log("已运行「" + app_name + "」");
     }
     else {
-        console.error("运行" + app_name + "失败");
+        console.error("运行「" + app_name + "」失败");
     }
 };
 
 common.stopApp = function (app_name) {
+    let app_package_name = getPackageName(app_name);
+    console.log("开始停止「" + app_name + "」");
+    let state = shell("am force-stop " + app_package_name, root_flag);
+    if (state.code == 0) {
+        sleep(waiting_time * 1000);
+        console.log("已强行停止「" + app_name + "」");
+    }
+    else {
+        console.error("强行停止「" + app_name + "」失败");
+    }
+};
+
+common.stopApp_GUI = function (app_name) {
     let app_package_name = getPackageName(app_name);
     openAppSetting(app_package_name);
     sleep(5000);
