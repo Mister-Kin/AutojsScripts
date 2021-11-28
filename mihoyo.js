@@ -86,6 +86,10 @@ function likeAndGlance() {
         if (count_like == 5) {
             break;
         }
+        if (count_swipe > 30) {
+            console.log("当前已向下滑动超过30次，强制退出循环");
+            break;
+        }
         // 向下滑动
         swipe(device.width / 2, device.height / 5 * 4, device.width / 2, device.height / 5 * 4 - device.height / 5 * 3, 300);
         sleep(2000);
