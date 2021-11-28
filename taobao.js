@@ -21,10 +21,18 @@ function getDailyGoldCoin() {
     let detect_get_gold_coin_button = desc("领淘金币").findOnce();
     if (detect_get_gold_coin_button) {
         detect_get_gold_coin_button.click();
-        sleep(15000);
+        sleep(10000);
+        let detect_sign_button = textContains("今日签到").findOnce();
+        if (detect_sign_button) {
+            click(540, 660);
+            console.log("已领取「淘金币」");
+        }
+        else {
+            console.log("今日的「淘金币」已领取过");
+        }
+        sleep(5000);
         back();
-        sleep(8000);
-        console.log("已领取「淘金币」");
+        sleep(5000);
     }
     else {
         console.error("未检测到「领淘金币」按钮");
