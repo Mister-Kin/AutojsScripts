@@ -30,7 +30,9 @@ function getDailyPoints() {
         else {
             console.error("未检测到「云贝中心」按钮");
         }
-        let detect_points_from_listening_music = text("听音乐30分钟").find();
+        sleep(5000); // 版本更新越来越卡，增加延时
+        // 目前的版本中，text 的末尾含有空格，为避免这种状况，将 text 选择器换为 textContains 选择器
+        let detect_points_from_listening_music = textContains("听音乐30分钟").find();
         if (detect_points_from_listening_music.nonEmpty()) {
             detect_points_from_listening_music.forEach(function (element) {
                 element.parent().parent().click();
