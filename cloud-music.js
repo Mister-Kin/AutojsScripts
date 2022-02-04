@@ -35,7 +35,7 @@ function getDailyPoints() {
         let detect_points_from_listening_music = textContains("听音乐30分钟").find();
         if (detect_points_from_listening_music.nonEmpty()) {
             detect_points_from_listening_music.forEach(function (element) {
-                element.parent().parent().click();
+                recursiveClick(element);
                 sleep(8000);
             }
             );
@@ -48,4 +48,9 @@ function getDailyPoints() {
     else {
         console.error("未检测到「抽屉菜单」按钮");
     }
+}
+
+function recursiveClick(element) {
+    if (!element.click())
+        recursiveClick(element.parent());
 }
