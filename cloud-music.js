@@ -51,6 +51,7 @@ function getDailyPoints() {
 }
 
 function recursiveClick(element) {
-    if (!element.click())
-        recursiveClick(element.parent());
+    if (element != null)
+        if (!element.click())
+            recursiveClick(element.parent());
 }
