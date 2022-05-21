@@ -6,7 +6,7 @@ let waiting_time = 20; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
 let common = require('common.js');
 common.startLog(task_name);
-common.runApp(app_name, waiting_time);
+common.runApp_nonRoot(app_name, waiting_time);
 // ----------------------------
 // 脚本自定义函数
 entryTab("崩坏：星穹铁道");
@@ -16,7 +16,7 @@ dailySign();
 likeAndGlance();
 getHonkaiImpact3rdDailyBonus();
 // ----------------------------
-common.stopApp(app_name);
+//common.stopApp(app_name);
 common.endLog(task_name);
 home();
 exit();

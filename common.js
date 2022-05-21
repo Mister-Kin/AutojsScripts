@@ -1,4 +1,4 @@
-var root_flag = true; // 手机已 root
+//var root_flag = true; // 手机已 root
 //var root_flag = false; // 手机未 root
 
 let common = {};
@@ -53,6 +53,11 @@ common.stopApp = function (app_name) {
         console.error("强行停止「" + app_name + "」失败");
     }
 };
+
+common.runApp_nonRoot = function (app_name) {
+    app.launchApp(app_name);
+    sleep(10000);
+}
 
 common.stopApp_GUI = function (app_name) {
     let app_package_name = getPackageName(app_name);
