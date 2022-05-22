@@ -81,7 +81,7 @@ function getHonkaiImpact3rdDailyBonus() {
 }
 
 function likeAndGlance() {
-    let count_like = 0, count_glance = 0, count_swipe = 0;
+    let count_like = 0, count_glance = 0, count_share = 0, count_swipe = 0;
     while (true) {
         if (count_like == 5) {
             break;
@@ -108,6 +108,18 @@ function likeAndGlance() {
                 count_glance++;
                 console.log("已浏览" + count_glance + "个帖子");
                 sleep(8000);
+                if (count_share < 1) {
+                    let detect_share_button = id("com.mihoyo.hyperion:id/mPostDetailActionBarIvMore2").findOne();
+                    detect_share_button.click();
+                    sleep(2000);
+                    let detect_copy_link_button = text("复制链接").findOnce();
+                    detect_copy_link_button.parent().click();
+                    count_share++;
+                    console.log("已分享" + count_share + "次，已完成分享任务");
+                    // TODO
+                    // 剪切板删除刚刚复制的链接
+                    sleep(1000);
+                }
                 back();
                 sleep(5000);
             }
