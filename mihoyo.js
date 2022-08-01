@@ -65,9 +65,9 @@ function getHonkaiImpact3rdDailyBonus() {
         let date = new Date().getDate();
         let date_text = "第" + date + "天";
         sleep(3000);
-        let detect_date_button = text(date_text).findOnce();
+        let detect_date_button = textContains(date_text).findOnce();
         if (detect_date_button) {
-            detect_date_button.parent().click();
+            detect_date_button.click();
             sleep(5000);
             console.log("已领取「" + date_text + "」的福利补给");
         }
