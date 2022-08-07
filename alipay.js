@@ -37,18 +37,18 @@ function getDailyPoints() {
         else {
             console.log("未检测到「全部领取」按钮");
         }
-        let detect_daily_sign_button = text("每日签到").findOnce();
+        let detect_daily_sign_button = textContains("今日签到").findOnce();
         if (detect_daily_sign_button) {
             detect_daily_sign_button.parent().click();
             sleep(5000);
-            console.log("已领取「每日签到」积分");
+            console.log("已领取「今日签到」积分");
             back();
             sleep(5000);
             back();
             sleep(5000);
         }
         else {
-            console.error("未检测到「每日签到」按钮");
+            console.error("未检测到「今日签到」按钮");
         }
     }
     else {
