@@ -48,7 +48,9 @@ function getDailyPoints() {
             sleep(5000);
         }
         else {
-            console.error("未检测到「今日签到」按钮");
+            console.info("未检测到「今日签到」按钮，已经领取过「今日签到」积分");
+            back();
+            sleep(5000);
         }
     }
     else {
@@ -67,14 +69,14 @@ function getDailyGoldBill() {
         if (detect_weekly_profit_button) {
             detect_weekly_profit_button.click();
             sleep(8000);
-            let detect_get_daily_gold_button = text("立即领").findOnce();
+            let detect_get_daily_gold_button = text("立即签到").findOnce();
             if (detect_get_daily_gold_button) {
                 detect_get_daily_gold_button.click();
                 sleep(5000);
                 console.log("已领取「黄金票」");
             }
             else {
-                console.error("未检测到「立即领」的按钮");
+                console.error("未检测到「立即签到」的按钮");
             }
         }
         else {
