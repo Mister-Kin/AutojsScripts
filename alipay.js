@@ -2,88 +2,77 @@
 // 脚本信息设定
 let task_name = "支付宝签到";
 let app_name = "支付宝";
-let waiting_time = 30; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
 let common = require('common.js');
 common.startLog(task_name);
-common.runApp_nonRoot(app_name, waiting_time);
+common.runApp(app_name);
 // ----------------------------
 // 脚本自定义函数
 getDailyPoints();
 getDailyGoldBill();
 // ----------------------------
-//common.stopApp(app_name);
+common.stopApp(app_name);
 common.endLog(task_name);
 home();
 exit();
 
 function getDailyPoints() {
-    let detect_mine_button = text("我的").findOnce();
+    let detect_mine_button = common.detectWidgetItem("text", "我的", "error", "normal");
     if (detect_mine_button) {
+        // 支付宝这个控件布局层次经常变动，故强制点击两次
         detect_mine_button.parent().parent().click();
         sleep(1000);
         detect_mine_button.parent().click();
-        sleep(5000);
-        // 点击“支付宝会员”按钮
-        click(850, 512);
-        sleep(8000);
-        let detect_get_all_button = text("全部领取").findOnce();
-        if (detect_get_all_button) {
-            detect_get_all_button.click();
-            sleep(8000);
-            // 这个控件一直存在，无法检测是否真的有其他积分。当无其他积分时，APP本身会有气泡提示「网络异常」。
-            console.log("已领取「其他」积分");
+        let detect_mine_page = common.detectWidgetItem("id", "com.alipay.android.phone.wealth.home:id/avatar", "none", "normal");
+        if (detect_mine_page) {
+            console.log("成功切换到「我的」页面");
+            // 点击“支付宝会员”按钮（Autojs无法分析控件详情，故采用坐标点击）
+            // TODO，解决click的问题，目前点击无效
+            click(850, 512);
+            let detect_get_all_button = common.detectWidgetItem("text", "全部领取", "log", "lite");
+            if (detect_get_all_button) {
+                detect_get_all_button.click();
+                // 这个控件一直存在，无法检测是否真的有其他积分。当无其他积分时，APP本身会有气泡提示「网络异常」。
+                console.log("已领取「其他」积分");
+            }
+            let detect_daily_sign_button = common.detectWidgetItem("textContains", "今日签到", "none", "normal");
+            if (detect_daily_sign_button) {
+                detect_daily_sign_button.parent().click();
+                console.log("已领取「今日签到」积分");
+                sleep(5000);
+                back();
+                sleep(2000);
+                back();
+            }
+            else {
+                console.info("未检测到「今日签到」按钮，已经领取过「今日签到」积分");
+            }
         }
         else {
-            console.log("未检测到「全部领取」按钮");
+            console.error("未成功切换到「我的」页面");
         }
-        let detect_daily_sign_button = textContains("今日签到").findOnce();
-        if (detect_daily_sign_button) {
-            detect_daily_sign_button.parent().click();
-            sleep(5000);
-            console.log("已领取「今日签到」积分");
-            back();
-            sleep(5000);
-            back();
-            sleep(5000);
-        }
-        else {
-            console.info("未检测到「今日签到」按钮，已经领取过「今日签到」积分");
-            back();
-            sleep(5000);
-        }
-    }
-    else {
-        console.error("未检测到「我的」按钮");
     }
 }
 
 function getDailyGoldBill() {
-    let detect_mine_button = text("理财").findOnce();
+    let detect_mine_button = common.detectWidgetItem("text", "理财", "error", "normal");
     if (detect_mine_button) {
         detect_mine_button.parent().parent().click();
         sleep(1000);
         detect_mine_button.parent().click();
-        sleep(5000);
-        let detect_weekly_profit_button = id("com.alipay.android.widget.fortunehome:id/weekly_profit_container").findOnce();
+        let detect_weekly_profit_button = common.detectWidgetItem("id", "com.alipay.android.widget.fortunehome:id/weekly_profit_container", "none", "normal");
         if (detect_weekly_profit_button) {
             detect_weekly_profit_button.click();
-            sleep(8000);
-            let detect_get_daily_gold_button = text("立即签到").findOnce();
+            let detect_get_daily_gold_button = common.detectWidgetItem("text", "立即签到", "error", "normal");
             if (detect_get_daily_gold_button) {
                 detect_get_daily_gold_button.click();
-                sleep(5000);
-                console.log("已领取「黄金票」");
-            }
-            else {
-                console.error("未检测到「立即签到」的按钮");
+                if (common.detectSuccessInfo("textContains", "成功领取黄金票")) {
+                    console.log("已领取「黄金票」");
+                }
             }
         }
         else {
             console.error("未检测到「每周收益」按钮");
         }
-    }
-    else {
-        console.error("未检测到「理财」按钮");
     }
 }

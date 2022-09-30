@@ -2,13 +2,13 @@
 // 脚本信息设定
 let task_name = "米游社签到";
 let app_name = "米游社";
-let waiting_time = 20; // 启动 APP 的等待时间，单位为秒
 // ----------------------------
 let common = require('common.js');
 common.startLog(task_name);
-common.runApp_nonRoot(app_name, waiting_time);
+common.runApp(app_name);
 // ----------------------------
 // 脚本自定义函数
+closeTeenageModeDialog();
 entryTab("崩坏：星穹铁道");
 dailySign();
 entryTab("崩坏3");
@@ -16,13 +16,23 @@ dailySign();
 likeAndGlance();
 getHonkaiImpact3rdDailyBonus();
 // ----------------------------
-//common.stopApp(app_name);
+common.stopApp(app_name);
 common.endLog(task_name);
 home();
 exit();
 
 function entryTab(tab_name) {
     let detect_tab_button = text(tab_name).find();
+    let try_time = 0;
+    while (detect_tab_button.empty()) {
+        sleep(100);
+        detect_tab_button = text(tab_name).find();
+        try_time++;
+        if (try_time > 50) {
+            common.detectWidgetItemLog("log", tab_name, 50);
+            break;
+        }
+    }
     if (detect_tab_button.nonEmpty()) {
         for (let index = 0; index < detect_tab_button.length; index++) {
             const element = detect_tab_button[index];
@@ -43,12 +53,12 @@ function entryTab(tab_name) {
 }
 
 function dailySign() {
-    let detect_not_sign_button = text("未签到").findOnce();
+    let detect_not_sign_button = common.detectWidgetItem("text", "未签到", "error", "normal");
     if (detect_not_sign_button) {
         detect_not_sign_button.parent().click();
-        sleep(8000);
-        back();
         sleep(5000);
+        back();
+        sleep(3000);
         console.log("已完成「讨论区签到」");
     }
     else {
@@ -57,19 +67,23 @@ function dailySign() {
 }
 
 function getHonkaiImpact3rdDailyBonus() {
-    let detect_bonus_button = text("福利补给").findOnce();
+    let detect_bonus_button = common.detectWidgetItem("text", "福利补给", "error", "normal");
     if (detect_bonus_button) {
         detect_bonus_button.parent().parent().click();
         sleep(5000);
         // 获取时间
         let date = new Date().getDate();
         let date_text = "第" + date + "天";
-        sleep(3000);
-        let detect_date_button = textContains(date_text).findOnce();
-        if (detect_date_button) {
-            detect_date_button.click();
-            sleep(5000);
-            console.log("已领取「" + date_text + "」的福利补给");
+        let detect_already_sign_date_button = common.detectWidgetItemWithChain("android.widget.TextView", 14, 0, 4, "error", "normal");
+        if (detect_already_sign_date_button) {
+            date = Number(detect_already_sign_date_button.text()) + 1;
+            date_text = "第" + date + "天";
+            detect_date_button = common.detectWidgetItem("textContains", date_text, "error", "normal");
+            if (detect_date_button) {
+                detect_date_button.click();
+                sleep(5000);
+                console.log("已领取「" + date_text + "」的福利补给");
+            }
         }
         else {
             console.error("未检测到「" + date_text + "」按钮");
@@ -133,4 +147,17 @@ function likeAndGlance() {
         sleep(2000);
     }
     console.log("已滑动至顶部");
+}
+
+
+function closeTeenageModeDialog() {
+    let detect_go_to_teenage_mode_widget = common.detectWidgetItem("id", "com.mihoyo.hyperion:id/tv_dialog_go_to_teenage_mode", "none", "normal");
+    if (detect_go_to_teenage_mode_widget) {
+        let detect_know_button = common.detectWidgetItem("text", "我知道了", "error", "normal");
+        if (detect_know_button) {
+            console.log("检测到青少年模式弹窗");
+            detect_know_button.click();
+            console.log("已关闭青少年模式弹窗");
+        }
+    }
 }
