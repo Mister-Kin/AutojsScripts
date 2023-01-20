@@ -65,7 +65,7 @@ function dailySign() {
 }
 
 function getHonkaiImpact3rdDailyBonus() {
-    let detect_bonus_button = common.detectWidgetItem("text", "福利补给", "error", "normal");
+    let detect_bonus_button = common.detectWidgetItem("text", "签到福利", "error", "normal");
     if (detect_bonus_button) {
         detect_bonus_button.parent().parent().click();
         sleep(5000);
@@ -80,7 +80,7 @@ function getHonkaiImpact3rdDailyBonus() {
             if (detect_date_button) {
                 detect_date_button.click();
                 sleep(5000);
-                console.log("已领取「" + date_text + "」的福利补给");
+                console.log("已领取「" + date_text + "」的签到福利");
             }
         }
         else {
@@ -88,7 +88,7 @@ function getHonkaiImpact3rdDailyBonus() {
         }
     }
     else {
-        console.error("未检测到「福利补给」按钮");
+        console.error("未检测到「签到福利」按钮");
     }
 }
 
