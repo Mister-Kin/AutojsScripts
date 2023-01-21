@@ -19,7 +19,7 @@ function getDailyBeans() {
     let detect_get_beans_button = common.detectWidgetItem("text", "领京豆", "error", "normal");
     if (detect_get_beans_button) {
         detect_get_beans_button.parent().click();
-        let detect_sign_to_get_beans_button = common.detectWidgetItem("text", "签到领京豆", "none", "normal");
+        let detect_sign_to_get_beans_button = common.detectWidgetItem("textContains", "签到领", "none", "normal");
         if (detect_sign_to_get_beans_button) {
             console.log("已进入领京豆页面");
             click(detect_sign_to_get_beans_button.bounds().centerX(), detect_sign_to_get_beans_button.bounds().centerY());
