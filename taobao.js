@@ -21,12 +21,13 @@ function getDailyGoldCoin() {
     let detect_get_gold_coin_button = common.detectWidgetItem("desc", "领淘金币", "error", "normal");
     if (detect_get_gold_coin_button) {
         detect_get_gold_coin_button.click();
-        let detect_get_gold_coin_page_state = common.detectWidgetItem("textContains", "已连续签到", "none", "normal");
+        let detect_get_gold_coin_page_state = common.detectWidgetItem("textContains", "已连签", "none", "normal");
         if (detect_get_gold_coin_page_state) {
             console.log("已进入领淘金币页面");
-            let detect_sign_button = common.detectWidgetItem("textContains", "今日签到", "error", "normal");
+            let detect_sign_button = common.detectWidgetItem("textContains", "赚金币", "error", "normal");
             if (detect_sign_button) {
-                click(540, 660);
+                detect_sign_button.click();
+                // click(540, 660);
                 if (common.detectSuccessInfo("textContains", "明日签到")) {
                     console.log("已领取「淘金币」");
                 }
