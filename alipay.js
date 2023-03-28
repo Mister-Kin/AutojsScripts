@@ -63,9 +63,9 @@ function getDailyGoldBill() {
         let detect_weekly_profit_button = common.detectWidgetItem("id", "com.alipay.android.widget.fortunehome:id/weekly_profit_container", "none", "normal");
         if (detect_weekly_profit_button) {
             detect_weekly_profit_button.click();
-            let detect_get_daily_gold_button = common.detectWidgetItem("text", "立即签到", "error", "normal");
+            let detect_get_daily_gold_button = common.detectTextWithIndexInParent("original", "5", "error", "normal");
             if (detect_get_daily_gold_button) {
-                detect_get_daily_gold_button.click();
+                detect_get_daily_gold_button.parent().click();
                 if (common.detectSuccessInfo("textContains", "成功领取黄金票")) {
                     console.log("已领取「黄金票」");
                 }

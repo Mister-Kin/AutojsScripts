@@ -126,6 +126,31 @@ common.detectWidgetItem = function (item_type, item_content, log_level, try_time
     }
 }
 
+common.detectTextWithIndexInParent = function (text_content, index_in_parent, log_level, try_time_frequency) {
+    let try_time_max = 0;
+    if (try_time_frequency == "normal") {
+        try_time_max = 50;
+    }
+    else if (try_time_frequency == "lite") {
+        try_time_max = 20;
+    }
+    else {
+        try_time_max = try_time_frequency;
+    }
+    let detect_widget_item = text(text_content).indexInParent(index_in_parent).findOnce();
+    let try_time = 0;
+    while (!detect_widget_item) {
+        sleep(100);
+        detect_widget_item = text(text_content).indexInParent(index_in_parent).findOnce();
+        try_time++;
+        if (try_time > try_time_max) {
+            this.detectWidgetItemLog(log_level, text_content, try_time_max);
+            return null;
+        }
+    }
+    return detect_widget_item;
+}
+
 common.detectWidgetItemWithChain = function (class_name, depth, draw_order, index_in_parent, log_level, try_time_frequency) {
     let try_time_max = 0;
     if (try_time_frequency == "normal") {
