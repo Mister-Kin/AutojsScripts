@@ -54,5 +54,13 @@ function bonusSign() {
                 console.log("未检测到操作成功的控件信息，请之后尝试重新运行脚本");
             }
         }
+        let detect_click_bonus = common.detectWidgetItem("text", "点击领取", "error", "normal");
+        if (detect_click_bonus) {
+            detect_click_bonus.parent().parent().click();
+            console.log("已领取「签到领现金」元宝");
+        }
+        else {
+            console.log("未检测到「点击领取」按钮，请之后尝试重新运行脚本");
+        }
     }
 }
