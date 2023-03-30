@@ -70,6 +70,15 @@ function getDailyGoldBill() {
                     console.log("已领取「黄金票」");
                 }
             }
+            else {
+                let detect_get_daily_gold_button = common.detectTextWithIndexInParent("original", "6", "error", "normal");
+                if (detect_get_daily_gold_button) {
+                    detect_get_daily_gold_button.parent().click();
+                    if (common.detectSuccessInfo("textContains", "成功领取黄金票")) {
+                        console.log("已领取「黄金票」");
+                    }
+                }
+            }
         }
         else {
             console.error("未检测到「每周收益」按钮");
