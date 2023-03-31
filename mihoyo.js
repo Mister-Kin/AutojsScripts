@@ -69,22 +69,21 @@ function getHonkaiImpact3rdDailyBonus() {
     if (detect_bonus_button) {
         detect_bonus_button.parent().parent().click();
         sleep(5000);
-        // 获取时间
-        let date = new Date().getDate();
-        let date_text = "第" + date + "天";
-        let detect_already_sign_date_button = common.detectWidgetItemWithChain("android.widget.TextView", 14, 0, 4, "error", "normal");
-        if (detect_already_sign_date_button) {
-            date = Number(detect_already_sign_date_button.text()) + 1;
-            date_text = "第" + date + "天";
-            detect_date_button = common.detectWidgetItem("textContains", date_text, "error", "normal");
+        // 获取已累计签到的天数
+        let detect_already_sign_date_info = common.detectWidgetItemWithChain("android.widget.TextView", 14, 0, 4, "error", "normal");
+        if (detect_already_sign_date_info) {
+            let date = Number(detect_already_sign_date_info.text()) + 1;
+            let date_text = "第" + date + "天";
+            let detect_date_button = common.detectWidgetItem("textContains", date_text, "error", "normal");
             if (detect_date_button) {
                 detect_date_button.click();
                 sleep(5000);
                 console.log("已领取「" + date_text + "」的签到福利");
+                console.log("本月已累计签到" + date + "天");
             }
         }
         else {
-            console.error("未检测到「" + date_text + "」按钮");
+            console.error("未检测到「已累计签到天数」的信息");
         }
     }
     else {
