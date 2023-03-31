@@ -63,25 +63,37 @@ function getDailyGoldBill() {
         let detect_weekly_profit_button = common.detectWidgetItem("id", "com.alipay.android.widget.fortunehome:id/weekly_profit_container", "none", "normal");
         if (detect_weekly_profit_button) {
             detect_weekly_profit_button.click();
-            let detect_get_daily_gold_button = common.detectTextWithIndexInParent("original", "5", "error", "normal");
-            if (detect_get_daily_gold_button) {
-                detect_get_daily_gold_button.parent().click();
-                if (common.detectSuccessInfo("textContains", "成功领取黄金票")) {
-                    console.log("已领取「黄金票」");
-                }
+            let time = new Date();
+            let date = time.getDate();
+            let month = time.getMonth() + 1;
+            let year = time.getFullYear();
+            let last_day = getLastDay(year, month);
+            if (date != last_day) {
+                date = date + 1;
             }
             else {
-                let detect_get_daily_gold_button = common.detectTextWithIndexInParent("original", "6", "error", "normal");
-                if (detect_get_daily_gold_button) {
-                    detect_get_daily_gold_button.parent().click();
+                date = date - 1
+            }
+            let date_text = "第" + date + "天";
+            // 无法直接依照控件信息查找时，只要其父控件可点击，就找其父控件下的其他控件
+            let detect_get_daily_gold_button = common.detectWidgetItem("text", date_text, "error", "normal");
+            if (detect_get_daily_gold_button) {
+                if (detect_get_daily_gold_button.parent().parent().click()) {
                     if (common.detectSuccessInfo("textContains", "成功领取黄金票")) {
                         console.log("已领取「黄金票」");
                     }
                 }
             }
+
         }
         else {
             console.error("未检测到「每周收益」按钮");
         }
     }
+}
+
+// 获取当月最后一天
+// 实现思路：获取下个月的1号的00：00时刻，然后减去1秒(或者毫秒、分钟、小时)，再输出day即可获取当月最后一天的日期
+function getLastDay(year, month) {
+    return new Date(new Date(`${month < 12 ? year : ++year}-${month == 12 ? 1 : ++month} 00:00`).getTime() - 1).getDate()
 }
