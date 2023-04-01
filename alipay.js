@@ -65,23 +65,23 @@ function getDailyGoldBill() {
             detect_weekly_profit_button.click();
             let time = new Date();
             let date = time.getDate();
+            let copy_date = date;
             let month = time.getMonth() + 1;
             let year = time.getFullYear();
             let last_day = getLastDay(year, month);
-            if (date != last_day) {
-                date = date + 1;
+            if (copy_date != last_day) {
+                copy_date = copy_date + 1;
             }
             else {
-                date = date - 1
+                copy_date = copy_date - 1
             }
-            let date_text = "第" + date + "天";
+            let date_text = "第" + copy_date + "天";
             // 无法直接依照控件信息查找时，只要其父控件可点击，就找其父控件下的其他控件
-            let detect_get_daily_gold_button = common.detectWidgetItem("text", date_text, "error", "normal");
+            let detect_get_daily_gold_button = common.detectWidgetItem("textContains", date_text, "error", "normal");
             if (detect_get_daily_gold_button) {
                 if (detect_get_daily_gold_button.parent().parent().click()) {
-                    if (common.detectSuccessInfo("textContains", "成功领取黄金票")) {
-                        console.log("已领取「黄金票」");
-                    }
+                    date_text = "第" + date + "天";
+                    console.log("已领取本月" + date_text + "的「黄金票」");
                 }
             }
 
