@@ -144,7 +144,7 @@ common.detectWidgetItemWithChain = function (class_name, depth, draw_order, inde
         detect_widget_item = className(class_name).depth(depth).drawingOrder(draw_order).indexInParent(index_in_parent).findOnce();
         try_time++;
         if (try_time > try_time_max) {
-            this.detectWidgetItemLog(log_level, item_content, try_time_max);
+            this.detectWidgetItemLog(log_level, class_name, try_time_max);
             return null;
         }
     }
