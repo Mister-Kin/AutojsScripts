@@ -11,10 +11,13 @@ common.runApp(app_name);
 closeTeenageModeDialog();
 entryTab("崩坏：星穹铁道");
 dailySign();
+getDailyBonus("崩坏：星穹铁道");
+back();
+back();
 entryTab("崩坏3");
 dailySign();
 likeAndGlance();
-getHonkaiImpact3rdDailyBonus();
+getDailyBonus("崩坏3");
 // ----------------------------
 common.stopApp(app_name);
 common.endLog(task_name);
@@ -64,15 +67,23 @@ function dailySign() {
     }
 }
 
-function getHonkaiImpact3rdDailyBonus() {
+function getDailyBonus(bonus_type) {
     let detect_bonus_button = common.detectWidgetItem("text", "签到福利", "error", "normal");
     if (detect_bonus_button) {
         detect_bonus_button.parent().parent().click();
         sleep(5000);
         // 获取已累计签到的天数
-        let detect_already_sign_date_info = common.detectWidgetItemWithChain("android.widget.TextView", 14, 0, 4, "error", "normal");
+        let number_idx_in_parent = 0
+        if (bonus_type == "崩坏3") {
+            number_idx_in_parent = 4;
+        }
+        else {
+            number_idx_in_parent = 3;
+        }
+        let detect_already_sign_date_info = common.detectWidgetItemWithChain("android.widget.TextView", 14, 0, number_idx_in_parent, "error", "normal");
         if (detect_already_sign_date_info) {
-            let date = Number(detect_already_sign_date_info.text()) + 1;
+            let date_already = detect_already_sign_date_info.text().match(/\d+/g);
+            let date = Number(date_already[date_already.length - 1]) + 1;
             let date_text = "第" + date + "天";
             let detect_date_button = common.detectWidgetItem("textContains", date_text, "error", "normal");
             if (detect_date_button) {
