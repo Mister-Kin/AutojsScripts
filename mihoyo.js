@@ -56,14 +56,14 @@ function entryTab(tab_name) {
 }
 
 function dailySign() {
-    let detect_not_sign_button = common.detectWidgetItem("text", "签到", "error", "normal");
+    let detect_not_sign_button = common.detectWidgetItem("text", "打卡", "error", "normal");
     if (detect_not_sign_button) {
         detect_not_sign_button.parent().click();
         sleep(5000);
-        console.log("已完成「讨论区签到」");
+        console.log("已完成「讨论区打卡签到」");
     }
     else {
-        console.info("未检测到「签到」按钮，讨论区已签到过");
+        console.info("未检测到「签到」按钮，讨论区已打卡签到过");
     }
 }
 
