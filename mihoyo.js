@@ -12,8 +12,6 @@ closeTeenageModeDialog();
 entryTab("崩坏：星穹铁道");
 dailySign();
 getDailyBonus("崩坏：星穹铁道");
-back();
-back();
 entryTab("崩坏3");
 dailySign();
 likeAndGlance();
@@ -56,21 +54,32 @@ function entryTab(tab_name) {
 }
 
 function dailySign() {
-    let detect_not_sign_button = common.detectWidgetItem("text", "打卡", "error", "normal");
+    // let detect_not_sign_button = common.detectWidgetItem("text", "打卡", "error", "normal");
+    let detect_not_sign_button = common.detectWidgetItemWithChain("android.widget.TextView", 17, 2, 1, "error", "normal");
     if (detect_not_sign_button) {
-        detect_not_sign_button.parent().click();
+        // detect_not_sign_button.parent().click();
+        // 控件获取时有异常，可能会获取到另一活动界面的控件，因各个界面的控件位置相同，改为坐标点击方案
+        // 如果获取到「打卡」控件的bounds属性异常，就捕获异常并忽略错误
+        let click_position = detect_not_sign_button.bounds();
+        try {
+            click(click_position.centerX(), click_position.centerY());
+        } catch (error) { };
         sleep(5000);
         console.log("已完成「讨论区打卡签到」");
     }
     else {
-        console.info("未检测到「签到」按钮，讨论区已打卡签到过");
+        console.info("未检测到「打卡签到」按钮，讨论区已打卡签到过");
     }
 }
 
 function getDailyBonus(bonus_type) {
     let detect_bonus_button = common.detectWidgetItem("text", "签到福利", "error", "normal");
     if (detect_bonus_button) {
-        detect_bonus_button.parent().parent().click();
+        // detect_bonus_button.parent().parent().click();
+        let click_position = detect_bonus_button.bounds();
+        try {
+            click(click_position.centerX(), click_position.centerY());
+        } catch (error) { };
         sleep(5000);
         // 获取已累计签到的天数
         let number_idx_in_parent = 0
@@ -91,6 +100,8 @@ function getDailyBonus(bonus_type) {
                 sleep(5000);
                 console.log("已领取「" + date_text + "」的签到福利");
                 console.log("本月已累计签到" + date + "天");
+                back();
+                back();
             }
         }
         else {
