@@ -10,12 +10,16 @@ common.runApp(app_name);
 // 脚本自定义函数
 closeTeenageModeDialog();
 entryTab("崩坏：星穹铁道");
+// 米游社的顶部控件获取时有问题，经常首个标签页能够正常获取，进入到第二个标签页就获取异常
+// 现为解决这个，定义两个变量来存储首个标签页中需要点击的元素坐标
+let daily_sign_position = [0, 0];
+let get_daily_bonus_position = [0, 0];
 dailySign();
 getDailyBonus("崩坏：星穹铁道");
 entryTab("崩坏3");
 dailySign();
-likeAndGlance();
 getDailyBonus("崩坏3");
+likeAndGlance(false);
 // ----------------------------
 common.stopApp(app_name);
 common.endLog(task_name);
@@ -60,10 +64,17 @@ function dailySign() {
         // detect_not_sign_button.parent().click();
         // 控件获取时有异常，可能会获取到另一活动界面的控件，因各个界面的控件位置相同，改为坐标点击方案
         // 如果获取到「打卡」控件的bounds属性异常，就捕获异常并忽略错误
-        let click_position = detect_not_sign_button.bounds();
-        try {
-            click(click_position.centerX(), click_position.centerY());
-        } catch (error) { };
+        if (daily_sign_position[0] > 0) {
+            click(daily_sign_position[0], daily_sign_position[1]);
+        }
+        else {
+            let click_position = detect_not_sign_button.bounds();
+            daily_sign_position[0] = click_position.centerX();
+            daily_sign_position[1] = click_position.centerY();
+            try {
+                click(click_position.centerX(), click_position.centerY());
+            } catch (error) { };
+        }
         sleep(5000);
         console.log("已完成「讨论区打卡签到」");
     }
@@ -76,10 +87,17 @@ function getDailyBonus(bonus_type) {
     let detect_bonus_button = common.detectWidgetItem("text", "签到福利", "error", "normal");
     if (detect_bonus_button) {
         // detect_bonus_button.parent().parent().click();
-        let click_position = detect_bonus_button.bounds();
-        try {
-            click(click_position.centerX(), click_position.centerY());
-        } catch (error) { };
+        if (get_daily_bonus_position[0] > 0) {
+            click(get_daily_bonus_position[0], get_daily_bonus_position[1]);
+        }
+        else {
+            let click_position = detect_bonus_button.bounds();
+            get_daily_bonus_position[0] = click_position.centerX();
+            get_daily_bonus_position[1] = click_position.centerY();
+            try {
+                click(click_position.centerX(), click_position.centerY());
+            } catch (error) { };
+        }
         sleep(5000);
         // 获取已累计签到的天数
         let number_idx_in_parent = 0
@@ -113,7 +131,7 @@ function getDailyBonus(bonus_type) {
     }
 }
 
-function likeAndGlance() {
+function likeAndGlance(swipe_back_flag) {
     let count_like = 0, count_glance = 0, count_share = 0, count_swipe = 0;
     while (true) {
         if (count_like == 5) {
@@ -161,11 +179,13 @@ function likeAndGlance() {
             console.log("未检测到需要「点赞」的按钮");
         }
     }
-    for (let i = 0; i < count_swipe; i++) {
-        swipe(device.width / 2, device.height / 5, device.width / 2, device.height / 5 + device.height / 5 * 3, 300);
-        sleep(2000);
+    if (swipe_back_flag) {
+        for (let i = 0; i < count_swipe; i++) {
+            swipe(device.width / 2, device.height / 5, device.width / 2, device.height / 5 + device.height / 5 * 3, 300);
+            sleep(2000);
+        }
+        console.log("已滑动至顶部");
     }
-    console.log("已滑动至顶部");
 }
 
 
