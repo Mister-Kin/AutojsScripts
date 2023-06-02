@@ -49,8 +49,16 @@ common.openMainActivity = function (app_name) {
             mainActivityFlag = 1;
         }
         if (try_time > 300) {
-            console.error("已尝试启动300次，均未检测到正确的activity");
-            return false;
+            this.stopApp(app_name);
+            app.launchApp(app_name);
+            sleep(2000);
+            if (currentActivity() == app_main_activity) {
+                mainActivityFlag = 1;
+            }
+            else {
+                console.error("已尝试启动300次，均未检测到正确的activity");
+                return false;
+            }
         }
     }
     console.log("已启动到「" + app_name + "」的主activity");
