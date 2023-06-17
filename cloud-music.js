@@ -28,22 +28,34 @@ function getDailyPoints() {
                 // 目前的版本中，text 的末尾含有空格，为避免这种状况，将 text 选择器换为 textContains 选择器
                 let detect_points_from_listening_music = textContains("听音乐30分钟").find();
                 let detect_points_from_listening_podcast = textContains("听播客30秒").find();
+                let detect_points_from_creating_song_list = textContains("创建一个歌单").find();
                 let try_time = 0;
                 while (detect_points_from_listening_music.empty()) {
                     sleep(100);
                     detect_points_from_listening_music = textContains("听音乐30分钟").find();
                     try_time++;
-                    if (try_time > 50) {
-                        common.detectWidgetItemLog("log", "听音乐30分钟", 50);
+                    if (try_time > 10) {
+                        common.detectWidgetItemLog("log", "听音乐30分钟", 10);
                         break;
                     }
                 }
+                try_time = 0;
                 while (detect_points_from_listening_podcast.empty()) {
                     sleep(100);
                     detect_points_from_listening_podcast = textContains("听播客30秒").find();
                     try_time++;
-                    if (try_time > 50) {
-                        common.detectWidgetItemLog("log", "听播客30秒", 50);
+                    if (try_time > 10) {
+                        common.detectWidgetItemLog("log", "听播客30秒", 10);
+                        break;
+                    }
+                }
+                try_time = 0;
+                while (detect_points_from_creating_song_list.empty()) {
+                    sleep(100);
+                    detect_points_from_creating_song_list = textContains("创建一个歌单").find();
+                    try_time++;
+                    if (try_time > 10) {
+                        common.detectWidgetItemLog("log", "创建一个歌单", 10);
                         break;
                     }
                 }
@@ -62,6 +74,14 @@ function getDailyPoints() {
                     }
                     );
                     console.log("已领取「听播客的云贝」");
+                }
+                if (detect_points_from_creating_song_list.nonEmpty()) {
+                    detect_points_from_creating_song_list.forEach(function (element) {
+                        recursiveClick(element);
+                        sleep(1000);
+                    }
+                    );
+                    console.log("已领取「创建一个歌单的云贝」");
                 }
             }
             else {
