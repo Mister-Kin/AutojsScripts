@@ -102,7 +102,7 @@ function getDailyBonus(bonus_type) {
         // 获取已累计签到的天数
         let number_idx_in_parent = 0
         if (bonus_type == "崩坏3") {
-            number_idx_in_parent = 4;
+            number_idx_in_parent = 3;
         }
         else {
             number_idx_in_parent = 3;
@@ -110,6 +110,9 @@ function getDailyBonus(bonus_type) {
         let detect_already_sign_date_info = common.detectWidgetItemWithChain("android.widget.TextView", 14, 0, number_idx_in_parent, "error", "normal");
         if (detect_already_sign_date_info) {
             let date_already = detect_already_sign_date_info.text().match(/\d+/g);
+            // 崩铁月数和签到天数处于同一个控件中，date_already返回一个数组，第二个元素才是签到天数
+            // date_already[date_already.length - 1]根据数组长度得到签到天数
+            // 目前崩铁和崩崩崩一样，月数和签到天数分开控件，代码层面可以不用改，一样适用
             let date = Number(date_already[date_already.length - 1]) + 1;
             let date_text = "第" + date + "天";
             let detect_date_button = common.detectWidgetItem("textContains", date_text, "error", "normal");
@@ -156,6 +159,7 @@ function likeAndGlance(swipe_back_flag) {
             // 浏览帖子
             if (count_glance < 3) {
                 detect_like_button.parent().children().findOne(id("com.mihoyo.hyperion:id/commentCountTv")).click();
+                // TODO：检测同级是否含有durationwidget，有则判定为视频，不点进去
                 count_glance++;
                 console.log("已浏览" + count_glance + "个帖子");
                 sleep(8000);
