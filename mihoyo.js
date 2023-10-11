@@ -9,13 +9,10 @@ common.runApp(app_name);
 // ----------------------------
 // 脚本自定义函数
 closeTeenageModeDialog();
-entryTab("崩坏：星穹铁道");
 // 米游社的顶部控件获取时有问题，经常首个标签页能够正常获取，进入到第二个标签页就获取异常
 // 现为解决这个，定义两个变量来存储首个标签页中需要点击的元素坐标
 let daily_sign_position = [0, 0];
 let get_daily_bonus_position = [0, 0];
-dailySign();
-getDailyBonus("崩坏：星穹铁道");
 entryTab("崩坏3");
 dailySign();
 getDailyBonus("崩坏3");
@@ -137,7 +134,8 @@ function getDailyBonus(bonus_type) {
 function likeAndGlance(swipe_back_flag) {
     let count_like = 0, count_glance = 0, count_share = 0, count_swipe = 0;
     while (true) {
-        if (count_like == 5) {
+        // TODO：寻找能否判断的逻辑，比如以图搜图？。目前新版无法通过select属性判断是否已经点赞过，增加点赞次数尽可能完成日常任务
+        if (count_like == 10) {
             break;
         }
         if (count_swipe > 30) {
@@ -150,7 +148,7 @@ function likeAndGlance(swipe_back_flag) {
         count_swipe++;
         console.log("向下滑动第" + count_swipe + "次");
         // 检测点赞按钮
-        let detect_like_button = id("com.mihoyo.hyperion:id/likeCountTv").find().findOne(selected(false));
+        let detect_like_button = id("com.mihoyo.hyperion:id/likeBtn").find().findOne(selected(false));
         if (detect_like_button) {
             detect_like_button.click();
             count_like++;
