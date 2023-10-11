@@ -43,9 +43,14 @@ function bonusSign() {
     let detect_sign_button = common.detectWidgetItem("desc", "签到", "error", "normal");
     if (detect_sign_button) {
         click(detect_sign_button.bounds().centerX(), detect_sign_button.bounds().centerY());
-        let detect_sign_immediately_button = common.detectWidgetItem("text", "O1CN01WMxEPd1DyZX55YeeW_!!6000000000285-54-tps-210-200", "error", "normal");
+        let detect_sign_immediately_button = common.detectWidgetItem("textContains", "立即签到", "error", "normal");
         if (detect_sign_immediately_button) {
-            detect_sign_immediately_button.parent().click();
+            detect_sign_immediately_button.click();
+            let detect_close_popup_button = common.detectWidgetItem("text", "关闭", "none", "lite");
+            if (detect_close_popup_button) {
+                detect_close_popup_button.click();
+                console.log("检测到弹窗，已关闭弹窗");
+            }
             let detect_sign_state = common.detectWidgetItem("text", "今天", "error", "normal");
             if (detect_sign_state.parent().childCount() != 3) {
                 console.log("已领取「签到领现金」元宝");
