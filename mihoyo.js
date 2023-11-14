@@ -11,7 +11,6 @@ common.runApp(app_name);
 closeTeenageModeDialog();
 // 米游社的顶部控件获取时有问题，经常首个标签页能够正常获取，进入到第二个标签页就获取异常
 // 现为解决这个，定义两个变量来存储首个标签页中需要点击的元素坐标
-let daily_sign_position = [0, 0];
 let get_daily_bonus_position = [0, 0];
 entryTab("崩坏3");
 dailySign();
@@ -55,28 +54,28 @@ function entryTab(tab_name) {
 }
 
 function dailySign() {
-    // let detect_not_sign_button = common.detectWidgetItem("text", "打卡", "error", "normal");
-    let detect_not_sign_button = common.detectWidgetItemWithChain("android.widget.TextView", 17, 2, 1, "error", "normal");
-    if (detect_not_sign_button) {
-        // detect_not_sign_button.parent().click();
-        // 控件获取时有异常，可能会获取到另一活动界面的控件，因各个界面的控件位置相同，改为坐标点击方案
-        // 如果获取到「打卡」控件的bounds属性异常，就捕获异常并忽略错误
-        if (daily_sign_position[0] > 0) {
-            click(daily_sign_position[0], daily_sign_position[1]);
+    let detect_deck_button = common.detectWidgetItem("text", "甲板", "error", "normal");
+    if (detect_deck_button) {
+        detect_deck_button.parent().parent().parent().parent().click();
+        sleep(5000);
+        console.log("已切换到「甲板」子标签页");
+        let detect_sign_button = common.detectWidgetItem("text", "打卡", "error", "normal");
+        if (detect_sign_button) {
+            detect_sign_button.parent().parent().click();
+            sleep(5000);
         }
         else {
-            let click_position = detect_not_sign_button.bounds();
-            daily_sign_position[0] = click_position.centerX();
-            daily_sign_position[1] = click_position.centerY();
-            try {
-                click(click_position.centerX(), click_position.centerY());
-            } catch (error) { };
+            console.info("未找到社区「打卡」按钮");
         }
-        sleep(5000);
-        console.log("已完成「讨论区打卡签到」");
+        if (common.detectSuccessInfo("text", "已打卡")) {
+            console.log("已完成社区打卡");
+        }
+        else {
+            console.log("未完成社区打卡");
+        }
     }
     else {
-        console.info("未检测到「打卡签到」按钮，讨论区已打卡签到过");
+        console.info("未找到「甲板」子标签页");
     }
 }
 
