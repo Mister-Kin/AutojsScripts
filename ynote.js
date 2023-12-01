@@ -49,6 +49,9 @@ function getDailyDiskSpace() {
         let detect_sign_to_get_disk_space_button = common.detectWidgetItem("text", "签到得空间", "none", "normal");
         if (detect_sign_to_get_disk_space_button) {
             detect_sign_to_get_disk_space_button.click();
+            sleep(2000);
+            let detect_sign_to_get_disk_space_button_second = common.detectWidgetItem("text", "签到得空间", "none", "normal");
+            detect_sign_to_get_disk_space_button_second.click();
             if (common.detectSuccessInfo("textContains", "签到成功")) {
                 console.log("已领取「签到奖励空间」");
             }
