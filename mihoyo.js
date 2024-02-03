@@ -98,22 +98,23 @@ function getDailyBonus(bonus_type) {
         // 获取已累计签到的天数
         let number_idx_in_parent = 0
         if (bonus_type == "崩坏3") {
-            number_idx_in_parent = 3;
+            number_idx_in_parent = 1;
         }
         else {
-            number_idx_in_parent = 3;
+            number_idx_in_parent = 1;
         }
         let detect_already_sign_date_info = common.detectWidgetItemWithChain("android.widget.TextView", 14, 0, number_idx_in_parent, "error", "normal");
         if (detect_already_sign_date_info) {
-            let date_already = detect_already_sign_date_info.text().match(/\d+/g);
+            // let date_already = detect_already_sign_date_info.text().match(/\d+/g);
             // 崩铁月数和签到天数处于同一个控件中，date_already返回一个数组，第二个元素才是签到天数
             // date_already[date_already.length - 1]根据数组长度得到签到天数
             // 目前崩铁和崩崩崩一样，月数和签到天数分开控件，代码层面可以不用改，一样适用
-            let date = Number(date_already[date_already.length - 1]) + 1;
+            // let date = Number(date_already[date_already.length - 1]) + 1;
+            let date = Number(detect_already_sign_date_info.text()) + 1;
             let date_text = "第" + date + "天";
             let detect_date_button = common.detectWidgetItem("textContains", date_text, "error", "normal");
             if (detect_date_button) {
-                detect_date_button.click();
+                detect_date_button.parent().click();
                 sleep(5000);
                 console.log("已领取「" + date_text + "」的签到福利");
                 console.log("本月已累计签到" + date + "天");
