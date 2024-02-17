@@ -20,11 +20,11 @@ exit();
 function getDailyGoldCoin() {
     let detect_get_gold_coin_button = common.detectWidgetItem("desc", "领淘金币", "error", "normal");
     if (detect_get_gold_coin_button) {
-        detect_get_gold_coin_button.click();
-        let detect_get_gold_coin_page_state = common.detectWidgetItem("textContains", "已连签", "none", "normal");
+        click(detect_get_gold_coin_button.bounds().centerX(), detect_get_gold_coin_button.bounds().centerY());
+        let detect_get_gold_coin_page_state = common.detectWidgetItem("textContains", "O1CN010MqzU21M3d67awGt3_!!6000000001379-2-tps-240-34.png_240x5000Q75s50.jpg_", "none", "normal");
         if (detect_get_gold_coin_page_state) {
             console.log("已进入领淘金币页面");
-            let detect_sign_button = common.detectWidgetItem("textContains", "今日签到", "error", "normal");
+            let detect_sign_button = common.detectWidgetItem("textContains", "O1CN01ejm6cm1dU3NBwqSMd_!!6000000003738-2-tps-328-100.png_490x330Q75s50.jpg_", "error", "normal");
             if (detect_sign_button) {
                 detect_sign_button.click();
                 // click(540, 660);
