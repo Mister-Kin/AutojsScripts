@@ -63,35 +63,17 @@ function getDailyGoldBill() {
         let detect_weekly_profit_button = common.detectWidgetItem("id", "com.alipay.android.widget.fortunehome:id/weekly_profit_container", "none", "normal");
         if (detect_weekly_profit_button) {
             detect_weekly_profit_button.click();
-            // 传递参数0：即从第一天开始递归检测
-            detect_get_daily_gold_button_recursively(0);
-            let detect_already_sign_date_info = common.detectWidgetItem("textContains", "明天再来", "error", "normal");
+            let detect_gold_bill_button = common.detectWidgetItemWithChain("android.view.View", 17, 0, 3, "error", "normal");
+            if (detect_gold_bill_button) {
+                detect_gold_bill_button.click();
+            }
+            let detect_already_sign_date_info = common.detectWidgetItem("textContains", "成功领取黄金票", "error", "normal");
             if (detect_already_sign_date_info) {
-                let date = detect_already_sign_date_info.text().match(/\d+/g);
-                let date_text = date + "天";
-                console.log("已领取" + date_text + "的「黄金票」");
+                console.log("已领取「黄金票」");
             }
         }
         else {
             console.error("未检测到「每周收益」按钮");
         }
-    }
-}
-
-// 递归检测点击领取黄金票
-function detect_get_daily_gold_button_recursively(date) {
-    date += 1;
-    // 超过一个月的天数就结束检测
-    if (date > 32) {
-        return;
-    }
-    let date_text = "第" + date + "天";
-    // 无法直接依照控件信息查找时，只要其父控件可点击，就找其父控件下的其他控件
-    let detect_get_daily_gold_button = common.detectWidgetItem("textContains", date_text, "none", "lite");
-    if (detect_get_daily_gold_button) {
-        detect_get_daily_gold_button.parent().parent().click()
-    }
-    else {
-        detect_get_daily_gold_button_recursively(date);
     }
 }
