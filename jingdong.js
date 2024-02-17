@@ -16,9 +16,10 @@ home();
 exit();
 
 function getDailyBeans() {
-    let detect_get_beans_button = common.detectWidgetItem("textContains", "京东秒杀", "error", "normal");
+    let detect_get_beans_button = common.detectWidgetItem("textContains", "秒杀", "error", "normal");
     if (detect_get_beans_button) {
         detect_get_beans_button.parent().click();
+        console.log("已打开「秒杀」页面");
         sleep(2000);
         click(312, 451);
         sleep(1000);
