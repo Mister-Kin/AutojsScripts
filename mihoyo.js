@@ -59,6 +59,7 @@ function dailySign() {
         detect_deck_button.parent().parent().parent().parent().click();
         sleep(5000);
         console.log("已切换到「甲板」子标签页");
+        // TODO：尝试添加yolo训练框架智能完成识别验证码
         let detect_sign_button = common.detectWidgetItem("text", "打卡", "error", "normal");
         if (detect_sign_button) {
             detect_sign_button.parent().parent().click();
@@ -184,7 +185,7 @@ function likeAndGlance(swipe_back_flag) {
 
 
 function closeTeenageModeDialog() {
-    let detect_go_to_teenage_mode_widget = common.detectWidgetItem("id", "com.mihoyo.hyperion:id/tv_dialog_go_to_teenage_mode", "none", "normal");
+    let detect_go_to_teenage_mode_widget = common.detectWidgetItem("id", "com.mihoyo.hyperion:id/tv_dialog_i_know", "none", "normal");
     if (detect_go_to_teenage_mode_widget) {
         let detect_know_button = common.detectWidgetItem("text", "我知道了", "error", "normal");
         if (detect_know_button) {
