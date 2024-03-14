@@ -9,6 +9,7 @@ common.runApp(app_name);
 // ----------------------------
 // 脚本自定义函数
 getDailyPoints();
+common.openMainActivity(app_name);
 getDailyGoldBill();
 // ----------------------------
 common.stopApp(app_name);
@@ -39,10 +40,6 @@ function getDailyPoints() {
             if (detect_daily_sign_button) {
                 detect_daily_sign_button.parent().click();
                 console.log("已领取「今日签到」积分");
-                sleep(5000);
-                back();
-                sleep(2000);
-                back();
             }
             else {
                 console.info("未检测到「今日签到」按钮，已经领取过「今日签到」积分");
@@ -63,10 +60,9 @@ function getDailyGoldBill() {
         let detect_weekly_profit_button = common.detectWidgetItem("id", "com.alipay.android.widget.fortunehome:id/weekly_profit_container", "none", "normal");
         if (detect_weekly_profit_button) {
             detect_weekly_profit_button.click();
-            let detect_gold_bill_button = common.detectWidgetItemWithChain("android.view.View", 17, 0, 3, "error", "normal");
-            if (detect_gold_bill_button) {
-                detect_gold_bill_button.click();
-            }
+            sleep(5000);
+            click(540, 972);
+            click(540, 972);
             let detect_already_sign_date_info = common.detectWidgetItem("textContains", "成功领取黄金票", "error", "normal");
             if (detect_already_sign_date_info) {
                 console.log("已领取「黄金票」");
