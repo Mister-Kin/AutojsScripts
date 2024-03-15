@@ -63,7 +63,7 @@ function getDailyGoldBill() {
             sleep(5000);
             click(540, 972);
             click(540, 972);
-            let detect_already_sign_date_info = common.detectWidgetItem("textContains", "成功领取黄金票", "error", "normal");
+            let detect_already_sign_date_info = common.detectWidgetItem("textContains", "成功领取今日权益", "error", "normal");
             if (detect_already_sign_date_info) {
                 console.log("已领取「黄金票」");
             }
