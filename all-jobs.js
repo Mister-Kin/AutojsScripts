@@ -1,4 +1,4 @@
-let filePathList = ["china-unicom.js", "ynote.js", "taobao.js", "jingdong.js", "alipay.js", "mihoyo.js", "cloud-music.js"];
+let filePathList = ["china-unicom.js", "ynote.js", "taobao.js", "jingdong.js", "alipay.js", "mihoyo.js"];
 
 filePathList = filePathList.map(function (filePath) {
     return files.path(filePath);
