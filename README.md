@@ -14,7 +14,6 @@ Support automatic works of following apps, such as daily sign-in tasks.
 - 支付宝
 - 米游社
 - 中国联通
-- 网易云音乐
 - 京东
 - 淘宝
 - 有道云笔记
