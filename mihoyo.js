@@ -13,9 +13,11 @@ closeTeenageModeDialog();
 // 现为解决这个，定义两个变量来存储首个标签页中需要点击的元素坐标
 let get_daily_bonus_position = [0, 0];
 entryTab("崩坏3");
-dailySign();
 getDailyBonus("崩坏3");
+common.openMainActivity(app_name);
 likeAndGlance(false);
+// 暂时无法解决图形验证码的问题，将签到功能移至最后执行
+dailySign();
 // ----------------------------
 common.stopApp(app_name);
 common.endLog(task_name);
@@ -150,7 +152,6 @@ function likeAndGlance(swipe_back_flag) {
             // 浏览帖子
             if (count_glance < 3) {
                 detect_like_button.parent().children().findOne(id("com.mihoyo.hyperion:id/commentCountTv")).click();
-                // TODO：检测同级是否含有durationwidget，有则判定为视频，不点进去
                 count_glance++;
                 console.log("已浏览" + count_glance + "个帖子");
                 sleep(8000);
@@ -162,8 +163,6 @@ function likeAndGlance(swipe_back_flag) {
                     detect_copy_link_button.parent().click();
                     count_share++;
                     console.log("已分享" + count_share + "次，已完成分享任务");
-                    // TODO
-                    // 剪切板删除刚刚复制的链接
                     sleep(1000);
                 }
                 back();
