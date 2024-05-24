@@ -27,39 +27,17 @@ common.getMainActivity = function (app_name) {
 common.openMainActivity = function (app_name) {
     let app_package_name = getPackageName(app_name);
     let app_main_activity = this.getMainActivity(app_name);
-    let mainActivityFlag = 0;
-    let try_time = 0;
-    while (mainActivityFlag == 0) {
-        sleep(100);
-        if (app_name != "中国联通" && app_name != "网易云音乐" && app_name != "京东") {
-            app.startActivity({
-                action: "android.intent.action.VIEW",
-                packageName: app_package_name,
-                className: app_main_activity,
-            });
-        }
-        else {
-            if (try_time == 50 || try_time == 100 || try_time == 200) {
-                this.stopApp(app_name);
-            }
-            app.launchApp(app_name);
-        }
-        try_time++;
-        if (currentActivity() == app_main_activity) {
-            mainActivityFlag = 1;
-        }
-        if (try_time > 300) {
-            this.stopApp(app_name);
-            app.launchApp(app_name);
-            sleep(2000);
-            if (currentActivity() == app_main_activity) {
-                mainActivityFlag = 1;
-            }
-            else {
-                console.error("已尝试启动300次，均未检测到正确的activity");
-                return false;
-            }
-        }
+    this.stopApp(app_name);
+    sleep(100);
+    if (app_name != "中国联通" && app_name != "京东") {
+        app.startActivity({
+            action: "android.intent.action.VIEW",
+            packageName: app_package_name,
+            className: app_main_activity,
+        });
+    }
+    else {
+        app.launchApp(app_name);
     }
     console.log("已启动到「" + app_name + "」的主activity");
     return true;
