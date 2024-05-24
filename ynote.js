@@ -30,7 +30,7 @@ function closeUpdateWindow() {
     let detect_update_button = common.detectWidgetItem("textContains", "发现新版本", "none", "lite");
     if (detect_update_button) {
         console.log("检测到APP升级弹窗");
-        let detect_close_update_button = common.detectWidgetItem("textContains", "以后再说", "error", "normal");
+        let detect_close_update_button = common.detectWidgetItem("textContains", "取消", "error", "normal");
         if (detect_close_update_button) {
             detect_close_update_button.click();
             console.log("已关闭APP升级弹窗");
