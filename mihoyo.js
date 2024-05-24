@@ -98,7 +98,7 @@ function getDailyBonus(bonus_type) {
             } catch (error) { };
             console.log("进入「签到福利」子标签页");
         }
-        sleep(5000);
+        sleep(8000);
         // 获取已累计签到的天数
         let detect_already_sign_text = common.detectWidgetItem("textContains", "已累计签到", "error", "normal");;
         if (detect_already_sign_text) {
