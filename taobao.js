@@ -21,19 +21,21 @@ function getDailyGoldCoin() {
     let detect_get_gold_coin_button = common.detectWidgetItem("desc", "领淘金币", "error", "normal");
     if (detect_get_gold_coin_button) {
         click(detect_get_gold_coin_button.bounds().centerX(), detect_get_gold_coin_button.bounds().centerY());
-        let detect_get_gold_coin_page_state = common.detectWidgetItem("textContains", "O1CN010MqzU21M3d67awGt3_!!6000000001379-2-tps-240-34.png_240x5000Q75s50.jpg_", "none", "normal");
-        if (detect_get_gold_coin_page_state) {
+        let detect_sign_button = common.detectWidgetItem("textContains", "签到领金币", "none", "normal");
+        if (detect_sign_button) {
             console.log("已进入领淘金币页面");
-            let detect_sign_button = common.detectWidgetItem("textContains", "O1CN01ejm6cm1dU3NBwqSMd_!!6000000003738-2-tps-328-100.png_490x330Q75s50.jpg_", "error", "normal");
-            if (detect_sign_button) {
-                detect_sign_button.click();
-                // click(540, 660);
-                if (common.detectSuccessInfo("textContains", "明日签到")) {
-                    console.log("已领取「淘金币」");
-                }
+            detect_sign_button.click();
+            if (common.detectSuccessInfo("textContains", "今日")) {
+                console.log("已领取「淘金币」");
+            }
+        }
+        else {
+            let detect_already_sign_button = common.detectWidgetItem("textContains", "明日签到", "log", "normal");
+            if (detect_already_sign_button) {
+                console.log("今日的「淘金币」已领取过，无需重复领取");
             }
             else {
-                console.log("今日的「淘金币」已领取过");
+                console.log("未检测到「签到领金币」按钮，「签到领金币」失败");
             }
         }
     }
@@ -43,7 +45,9 @@ function bonusSign() {
     let detect_sign_button = common.detectWidgetItem("desc", "签到", "error", "normal");
     if (detect_sign_button) {
         click(detect_sign_button.bounds().centerX(), detect_sign_button.bounds().centerY());
-        let detect_sign_immediately_button = common.detectWidgetItem("textContains", "立即签到", "error", "normal");
+        sleep(2000);
+        passVerify();
+        let detect_sign_immediately_button = common.detectWidgetItem("textContains", "立即签到", "none", "normal");
         if (detect_sign_immediately_button) {
             detect_sign_immediately_button.click();
             let detect_close_popup_button = common.detectWidgetItem("text", "关闭", "none", "lite");
@@ -51,7 +55,7 @@ function bonusSign() {
                 detect_close_popup_button.click();
                 console.log("检测到弹窗，已关闭弹窗");
             }
-            let detect_sign_state = common.detectWidgetItem("text", "今天", "error", "normal");
+            let detect_sign_state = common.detectWidgetItem("textContains", "今天", "error", "normal");
             if (detect_sign_state.parent().childCount() != 3) {
                 console.log("已领取「签到领现金」元宝");
             }
@@ -67,5 +71,16 @@ function bonusSign() {
         else {
             console.log("未检测到「点击领取」按钮，请之后尝试重新运行脚本");
         }
+    }
+}
+
+function passVerify() {
+    let detect_pass_verify_slider = common.detectWidgetItem("textContains", "向右滑动验证", "none", "lite");
+    if (detect_pass_verify_slider) {
+        console.log("当前检测到存在验证滑块页面");
+        setScreenMetrics(1080, 2412);
+        // swipe(183, 1662, 950, 1662, 1000);
+        common.sml_mov(183, 1662, 950, 1662, 1000);
+        console.log("已通过验证");
     }
 }
