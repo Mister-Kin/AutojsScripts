@@ -16,21 +16,12 @@ home();
 exit();
 
 function dailySign() {
-    let detect_sign_button = common.detectWidgetItem("id", "com.sinovatech.unicom.ui:id/home_qiandao_image", "none", "normal");
-    if (detect_sign_button) {
-        detect_sign_button.click();
-        let detect_sign_state = common.detectWidgetItem("text", "今天", "none", "normal");
-        if (detect_sign_state.parent().childCount() == 3) {
-            console.info("已经签到过，无需重复签到");
-        }
-        else {
-            // 这个有待修正，目前检测不到这个控件
-            if (common.detectSuccessInfo("textContains", "签到")) {
-                console.log("已完成「每日签到」");
-            }
-        }
-    }
-    else {
-        console.error("未检测到首页「签到」按钮");
+    sleep(5000);
+    setScreenMetrics(1080, 2412);
+    click(350, 380);
+    sleep(3000);
+    let sign_success_info = common.detectSuccessInfo("textContains", "签到成功");
+    if (sign_success_info) {
+        console.log("已完成「每日签到」");
     }
 }
