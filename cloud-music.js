@@ -15,7 +15,7 @@ common.endLog(task_name);
 home();
 exit();
 
-function daily_sign() {
+function getDailyPoints() {
     let detect_drawer_menu_button = common.detectWidgetItem("desc", "抽屉菜单", "error", "normal");
     if (detect_drawer_menu_button) {
         detect_drawer_menu_button.click();
