@@ -61,6 +61,7 @@ function getDailyGoldBill() {
         if (detect_weekly_profit_button) {
             detect_weekly_profit_button.click();
             sleep(5000);
+            setScreenMetrics(1080, 2412);
             click(540, 972);
             click(540, 972);
             let detect_already_sign_date_info = common.detectWidgetItem("textContains", "成功领取今日权益", "error", "normal");
