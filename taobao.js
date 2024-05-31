@@ -42,7 +42,7 @@ function getDailyGoldCoin() {
 }
 
 function bonusSign() {
-    let detect_sign_button = common.detectWidgetItem("desc", "签到", "error", "normal");
+    let detect_sign_button = common.detectWidgetItem("desc", "红包签到", "error", "normal");
     if (detect_sign_button) {
         click(detect_sign_button.bounds().centerX(), detect_sign_button.bounds().centerY());
         sleep(2000);
