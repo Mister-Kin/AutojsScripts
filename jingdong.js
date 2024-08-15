@@ -20,16 +20,18 @@ function getDailyBeans() {
     if (detect_get_beans_button) {
         detect_get_beans_button.parent().click()
         console.log("已打开「秒杀」页面")
-        sleep(2000)
-        click(312, 451)
-        sleep(1000)
-        click(312, 451)
-        sleep(2000)
-    }
-    if (common.detectSuccessInfo("textContains", "已签到")) {
-        console.log("已领取「京豆」")
-    }
-    else {
-        console.log("未领取到「京豆」")
+        setScreenMetrics(1080, 2412)
+        common.sml_mov(900, 100, 950, 150, 1000)
+        let detect_sign_to_get_beans_button = common.detectWidgetItem("textContains", "签到领豆", "none", "normal")
+        if (detect_sign_to_get_beans_button) {
+            detect_sign_to_get_beans_button.parent().click()
+        }
+        let detect_get_more_beans_button = common.detectWidgetItemWithChain("android.widget.TextView", 20, 0, 1, "error", "lite")
+        if (detect_get_more_beans_button) {
+            console.log("已领取「京豆」")
+        }
+        else {
+            console.log("未领取到「京豆」")
+        }
     }
 }
