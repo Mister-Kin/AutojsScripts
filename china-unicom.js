@@ -16,12 +16,14 @@ home()
 exit()
 
 function dailySign() {
-    sleep(5000)
-    setScreenMetrics(1080, 2412)
-    click(350, 380)
-    sleep(3000)
-    let sign_success_info = common.detectSuccessInfo("textContains", "签到成功")
-    if (sign_success_info) {
-        console.log("已完成「每日签到」")
+    let detect_sign_button = common.detectWidgetItem("id", "com.sinovatech.unicom.ui:id/home_qiandao_image", "none", "normal")
+    if (detect_sign_button) {
+        detect_sign_button.click()
+        if (common.detectSuccessInfo("textContains", "话费红包")) {
+            console.log("已完成「每日签到」")
+        }
+    }
+    else {
+        console.error("未检测到首页「签到」按钮")
     }
 }
