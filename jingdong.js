@@ -24,7 +24,7 @@ function getDailyBeans() {
         common.sml_mov(900, 100, 950, 150, 1000)
         let detect_sign_to_get_beans_button = common.detectWidgetItem("textContains", "签到领豆", "none", "normal")
         if (detect_sign_to_get_beans_button) {
-            detect_sign_to_get_beans_button.parent().click()
+            click(540, detect_sign_to_get_beans_button.bounds().top + detect_sign_to_get_beans_button.bounds().height() * 3 / 4)
         }
         let detect_get_more_beans_button = common.detectWidgetItemWithChain("android.widget.TextView", 20, 0, 1, "error", "lite")
         if (detect_get_more_beans_button) {
