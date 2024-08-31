@@ -99,9 +99,15 @@ function getDailyBonus(bonus_type) {
             console.log("进入「签到福利」子标签页")
         }
         sleep(8000)
+        common.sml_mov(540, 100, 540, 200, 1000)
         // 获取已累计签到的天数
         let detect_already_sign_text = common.detectWidgetItem("textContains", "已累计签到", "error", "normal");;
         if (detect_already_sign_text) {
+            // let date_already = detect_already_sign_date_info.text().match(/\d+/g);
+            // 崩铁月数和签到天数处于同一个控件中，date_already返回一个数组，第二个元素才是签到天数
+            // date_already[date_already.length - 1]根据数组长度得到签到天数
+            // 目前崩铁和崩崩崩一样，月数和签到天数分开控件，代码层面可以不用改，一样适用
+            // let date = Number(date_already[date_already.length - 1]) + 1;
             let detect_already_sign_day = detect_already_sign_text.parent().child(1).text()
             console.log("当前已累计签到" + detect_already_sign_day + "天")
             // 执行签到领取福利
@@ -129,8 +135,7 @@ function getDailyBonus(bonus_type) {
 function likeAndGlance(swipe_back_flag) {
     let count_like = 0, count_glance = 0, count_share = 0, count_swipe = 0
     while (true) {
-        // TODO：寻找能否判断的逻辑，比如以图搜图？。目前新版无法通过select属性判断是否已经点赞过，增加点赞次数尽可能完成日常任务
-        if (count_like == 10) {
+        if (count_like == 5) {
             break
         }
         if (count_swipe > 30) {
@@ -145,10 +150,20 @@ function likeAndGlance(swipe_back_flag) {
         // 检测点赞按钮
         let detect_like_button = id("com.mihoyo.hyperion:id/likeBtn").find().findOne(selected(false))
         if (detect_like_button) {
-            detect_like_button.click()
-            count_like++
-            console.log("已点赞" + count_like + "次")
-            sleep(2000)
+            if (!requestScreenCapture()) {
+                console.log("请求截图失败")
+            }
+            let like_button_x = detect_like_button.child(0).bounds().centerX()
+            let like_button_y = detect_like_button.child(0).bounds().centerY()
+            let img = captureScreen()
+            if (images.detectsColor(img, "#ff6e40", like_button_x, like_button_y)) {
+                console.log("已点赞过，无需再次点赞")
+            } else {
+                detect_like_button.click()
+                count_like++
+                console.log("已点赞" + count_like + "次")
+                sleep(2000)
+            }
             // 浏览帖子
             if (count_glance < 3) {
                 detect_like_button.parent().children().findOne(id("com.mihoyo.hyperion:id/commentCountTv")).click()
