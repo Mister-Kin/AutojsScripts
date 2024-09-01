@@ -135,7 +135,7 @@ function getDailyBonus(bonus_type) {
 function likeAndGlance(swipe_back_flag) {
     let count_like = 0, count_glance = 0, count_share = 0, count_swipe = 0
     while (true) {
-        if (count_like == 5) {
+        if (count_like == 6) {
             break
         }
         if (count_swipe > 30) {
