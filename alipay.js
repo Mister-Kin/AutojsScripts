@@ -39,6 +39,7 @@ function getDailyPoints() {
             let detect_daily_sign_button = common.detectWidgetItem("textContains", "今日签到", "none", "normal")
             if (detect_daily_sign_button) {
                 detect_daily_sign_button.parent().click()
+                sleep(2000)
                 console.log("已领取「今日签到」积分")
             }
             else {
