@@ -165,7 +165,7 @@ function likeAndGlance(swipe_back_flag) {
                 sleep(2000)
             }
             // 浏览帖子
-            if (count_glance < 3) {
+            if (count_glance < 4) {
                 detect_like_button.parent().children().findOne(id("com.mihoyo.hyperion:id/commentCountTv")).click()
                 count_glance++
                 console.log("已浏览" + count_glance + "个帖子")
