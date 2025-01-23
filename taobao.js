@@ -21,16 +21,18 @@ function getDailyGoldCoin() {
     let detect_get_gold_coin_button = common.detectWidgetItem("desc", "领淘金币", "error", "normal")
     if (detect_get_gold_coin_button) {
         click(detect_get_gold_coin_button.bounds().centerX(), detect_get_gold_coin_button.bounds().centerY())
-        let detect_sign_button = common.detectWidgetItem("textContains", "签到领金币", "none", "normal")
+        let detect_sign_button = common.detectWidgetItem("textContains", "点击签到", "none", "normal")
         if (detect_sign_button) {
             console.log("已进入领淘金币页面")
-            detect_sign_button.click()
-            if (common.detectSuccessInfo("textContains", "今日")) {
+            sleep(2000)
+            let detect_sign_button_second = common.detectWidgetItem("textContains", "点击签到", "none", "normal")
+            detect_sign_button_second.parent().click()
+            if (common.detectSuccessInfo("textContains", "明天可领")) {
                 console.log("已领取「淘金币」")
             }
         }
         else {
-            let detect_already_sign_button = common.detectWidgetItem("textContains", "明日签到", "log", "normal")
+            let detect_already_sign_button = common.detectWidgetItem("textContains", "明天可领", "log", "normal")
             if (detect_already_sign_button) {
                 console.log("今日的「淘金币」已领取过，无需重复领取")
             }
