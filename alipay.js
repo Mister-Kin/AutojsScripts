@@ -61,15 +61,15 @@ function getDailyGoldBill() {
         let detect_weekly_profit_button = common.detectWidgetItem("id", "com.alipay.android.widget.fortunehome:id/weekly_profit_container", "none", "normal")
         if (detect_weekly_profit_button) {
             detect_weekly_profit_button.click()
-            let detect_get_tomorrow_button = common.detectWidgetItem("textContains", "提醒我明天领", "none", "normal")
+            let detect_get_tomorrow_button = common.detectWidgetItem("textContains", "明日", "none", "normal")
             if (detect_get_tomorrow_button) {
                 console.info("今天「黄金票」已领取过，无需领取")
             }
             else {
-                let detect_get_immediately_button = common.detectWidgetItem("textContains", "马上领取", "error", "normal")
+                let detect_get_immediately_button = common.detectWidgetItem("textContains", "连签翻倍", "error", "normal")
                 if (detect_get_immediately_button) {
-                    detect_get_immediately_button.click()
-                    let detect_already_sign_date_info = common.detectWidgetItem("textContains", "已领取今日权益", "error", "normal")
+                    detect_get_immediately_button.parent().click()
+                    let detect_already_sign_date_info = common.detectWidgetItem("textContains", "点我赚更多", "error", "normal")
                     if (detect_already_sign_date_info) {
                         console.log("已领取「黄金票」")
                     }
