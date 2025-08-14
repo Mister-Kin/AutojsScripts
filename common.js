@@ -29,7 +29,7 @@ common.openMainActivity = function (app_name) {
     let app_main_activity = this.getMainActivity(app_name)
     this.stopApp(app_name)
     sleep(100)
-    if (app_name != "中国联通" && app_name != "京东") {
+    if (app_name != "中国联通" && app_name != "京东" && app_name != "淘宝") {
         app.startActivity({
             action: "android.intent.action.VIEW",
             packageName: app_package_name,
