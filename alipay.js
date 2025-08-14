@@ -10,6 +10,7 @@ common.runApp(app_name)
 // 脚本自定义函数
 getDailyPoints()
 common.openMainActivity(app_name)
+common.openMainActivity(app_name)
 getDailyGoldBill()
 // ----------------------------
 common.stopApp(app_name)
@@ -24,12 +25,10 @@ function getDailyPoints() {
         detect_mine_button.parent().parent().click()
         sleep(1000)
         detect_mine_button.parent().click()
-        let detect_mine_page = common.detectWidgetItem("id", "com.alipay.android.phone.wealth.home:id/avatar", "none", "normal")
-        if (detect_mine_page) {
+        let detect_menbership_button = common.detectWidgetItem("text", "支付宝会员", "log", "lite")
+        if (detect_menbership_button) {
             console.log("成功切换到「我的」页面")
-            // 点击“支付宝会员”按钮（Autojs无法分析控件详情，故采用坐标点击）
-            // TODO，解决click的问题，目前点击无效
-            click(850, 512)
+            detect_menbership_button.parent().click()
             let detect_get_all_button = common.detectWidgetItem("text", "全部领取", "log", "lite")
             if (detect_get_all_button) {
                 detect_get_all_button.click()
@@ -66,13 +65,9 @@ function getDailyGoldBill() {
                 console.info("今天「黄金票」已领取过，无需领取")
             }
             else {
-                let detect_get_immediately_button = common.detectWidgetItem("textContains", "连签翻倍", "error", "normal")
+                let detect_get_immediately_button = common.detectWidgetItem("textContains", "连签有奖", "error", "normal")
                 if (detect_get_immediately_button) {
                     detect_get_immediately_button.parent().click()
-                    let detect_already_sign_date_info = common.detectWidgetItem("textContains", "点我赚更多", "error", "normal")
-                    if (detect_already_sign_date_info) {
-                        console.log("已领取「黄金票」")
-                    }
                 }
             }
         }
