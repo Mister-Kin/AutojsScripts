@@ -16,14 +16,22 @@ home()
 exit()
 
 function dailySign() {
-    let detect_sign_button = common.detectWidgetItem("id", "com.sinovatech.unicom.ui:id/home_qiandao_image", "none", "normal")
-    if (detect_sign_button) {
-        detect_sign_button.click()
-        if (common.detectSuccessInfo("textContains", "话费红包")) {
-            console.log("已完成「每日签到」")
+    let detect_my_button = common.detectWidgetItem("id", "com.sinovatech.unicom.ui:id/main_tab_user_layout", "error", "normal")
+    if (detect_my_button) {
+        detect_my_button.click()
+        let detect_in_my_page = common.detectWidgetItem("text", "我的套餐", "error", "normal")
+        if (detect_in_my_page) {
+            console.log("已进入「我的」页面")
+            let detect_sign_button = common.detectWidgetItem("id", "com.sinovatech.unicom.ui:id/user_login_qiandao", "error", "normal")
+            if(detect_sign_button){
+                detect_sign_button.click()
+                if (common.detectSuccessInfo("textContains", "话费红包")) {
+                    console.log("已完成「每日签到」")
+                }
+            }
         }
     }
     else {
-        console.error("未检测到首页「签到」按钮")
+        console.error("未检测到「我的」按钮")
     }
 }
