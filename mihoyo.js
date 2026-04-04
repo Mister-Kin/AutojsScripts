@@ -15,7 +15,7 @@ let get_daily_bonus_position = [0, 0]
 entryTab("崩坏3")
 getDailyBonus("崩坏3")
 common.openMainActivity(app_name)
-likeAndGlance(false)
+// likeAndGlance(false)
 // 暂时无法解决图形验证码的问题，将签到功能移至最后执行
 dailySign()
 // ----------------------------
