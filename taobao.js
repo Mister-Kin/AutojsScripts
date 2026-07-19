@@ -20,13 +20,21 @@ exit()
 function getDailyGoldCoin() {
     let detect_get_gold_coin_button = common.detectWidgetItem("desc", "领淘金币", "error", "normal")
     if (detect_get_gold_coin_button) {
+        // 使用click()方法点击控件的中心点坐标，因为desc属性可能会搜索到两个控件
         click(detect_get_gold_coin_button.bounds().centerX(), detect_get_gold_coin_button.bounds().centerY())
-        let detect_sign_button = common.detectWidgetItem("textContains", "点击签到", "none", "normal")
+        let detect_sign_button = common.detectWidgetItem("textContains", "今天可领", "none", "normal")
         if (detect_sign_button) {
             console.log("已进入领淘金币页面")
             sleep(2000)
-            let detect_sign_button_second = common.detectWidgetItem("textContains", "点击签到", "none", "normal")
-            detect_sign_button_second.parent().click()
+            let detect_sign_button_second = common.detectWidgetItem("textContains", "签到领金币", "none", "normal")
+            if (detect_sign_button_second) {
+                click(detect_sign_button_second.bounds().centerX(), detect_sign_button_second.bounds().centerY())
+                sleep(2000)
+                // 不知道为啥click方案没有效果，只能改用坐标中心方案
+                // detect_sign_button_second.parent().click()
+            } else {
+                console.log("未检测到「签到领金币」按钮，「签到领金币」失败")
+            }
             if (common.detectSuccessInfo("textContains", "明天可领")) {
                 console.log("已领取「淘金币」")
             }
