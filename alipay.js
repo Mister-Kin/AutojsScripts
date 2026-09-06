@@ -57,22 +57,56 @@ function getDailyGoldBill() {
         detect_mine_button.parent().parent().click()
         sleep(1000)
         detect_mine_button.parent().click()
-        let detect_weekly_profit_button = common.detectWidgetItem("id", "com.alipay.android.widget.fortunehome:id/weekly_profit_container", "none", "normal")
-        if (detect_weekly_profit_button) {
-            detect_weekly_profit_button.click()
-            let detect_get_tomorrow_button = common.detectWidgetItem("textContains", "明日", "none", "normal")
-            if (detect_get_tomorrow_button) {
-                console.info("今天「黄金票」已领取过，无需领取")
-            }
-            else {
-                let detect_get_immediately_button = common.detectWidgetItem("textContains", "连签有奖", "error", "normal")
-                if (detect_get_immediately_button) {
-                    detect_get_immediately_button.parent().click()
+        let detect_gold_button = common.detectWidgetItem("text", "黄金", "error", "normal")
+        if (detect_gold_button) {
+            detect_gold_button.parent().parent().click()
+            console.log("进入黄金页面")
+            sleep(2000)
+            let detect_get_gold_button = common.detectWidgetItem("text", "黄金票", "none", "normal")
+            if (detect_get_gold_button) {
+                detect_get_gold_button.parent().click()
+                console.log("进入黄金票页面")
+                sleep(2000)
+                // TODO：实现点击「猜涨」按钮并不影响后续的操作
+                // setScreenMetrics(1080, 2412)
+                // common.sml_mov(900, 100, 910, 110, 1000)
+                // let detect_guess_increase_button = common.detectWidgetItem("text", "猜涨", "none", "normal")
+                // if (detect_guess_increase_button) {
+                //     detect_guess_increase_button.click()
+                //     console.log("点击「猜涨」按钮")
+                //     sleep(2000)
+                // }
+                console.log("尝试直接点击「去签到」按钮进入黄金票签到页面")
+                click(150, 1650)
+                sleep(2000)
+                let detect_get_tomorrow_button = common.detectWidgetItem("textContains", "明日", "none", "normal")
+                if (detect_get_tomorrow_button) {
+                    console.info("今天「黄金票」已领取过，无需领取")
+                }
+                else {
+                    let detect_get_immediately_button = common.detectWidgetItem("textContains", "连签有奖", "error", "normal")
+                    if (detect_get_immediately_button) {
+                        detect_get_immediately_button.parent().click()
+                    }
                 }
             }
         }
-        else {
-            console.error("未检测到「每周收益」按钮")
-        }
+        // let detect_weekly_profit_button = common.detectWidgetItem("id", "com.alipay.android.widget.fortunehome:id/weekly_profit_container", "none", "normal")
+        // if (detect_weekly_profit_button) {
+        //     detect_weekly_profit_button.click()
+        //     let detect_get_tomorrow_button = common.detectWidgetItem("textContains", "明日", "none", "normal")
+        //     if (detect_get_tomorrow_button) {
+        //         console.info("今天「黄金票」已领取过，无需领取")
+        //     }
+        //     else {
+        //         let detect_get_immediately_button = common.detectWidgetItem("textContains", "连签有奖", "error", "normal")
+        //         if (detect_get_immediately_button) {
+        //             detect_get_immediately_button.parent().click()
+        //         }
+        //     }
+        // }
+        // else {
+        //     console.error("未检测到「每周收益」按钮")
+        // }
     }
 }
