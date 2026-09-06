@@ -33,7 +33,7 @@ function getDailyGoldCoin() {
                 // 不知道为啥click方案没有效果，只能改用坐标中心方案
                 // detect_sign_button_second.parent().click()
             } else {
-                console.log("未检测到「签到领金币」按钮，「签到领金币」失败")
+                console.log("未检测到「签到领金币」按钮，「签到领金币」失败或者已领取「淘金币」")
             }
             if (common.detectSuccessInfo("textContains", "明天可领")) {
                 console.log("已领取「淘金币」")
