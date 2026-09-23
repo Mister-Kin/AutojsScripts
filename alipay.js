@@ -62,9 +62,23 @@ function getDailyGoldBill() {
             detect_gold_button.parent().parent().click()
             console.log("进入黄金页面")
             sleep(2000)
-            let detect_get_gold_button = common.detectWidgetItem("text", "黄金票", "none", "normal")
+            // let detect_get_gold_button = common.detectWidgetItem("text", "黄金票", "none", "normal")
+            let detect_get_gold_welfare_button = common.detectWidgetItem("text", "黄金福利", "none", "normal")
+            // 寻找同级顺延第二个控件
+            let detect_get_gold_button = null
+            if (detect_get_gold_welfare_button) {
+                let parent_children = detect_get_gold_welfare_button.parent().children()
+                for (let i = 0; i < parent_children.length; i++) {
+                    if (parent_children[i].text() == detect_get_gold_welfare_button.text()) {
+                        if (i + 2 < parent_children.length) {
+                            detect_get_gold_button = parent_children[i + 2]
+                        }
+                        break
+                    }
+                }
+            }
             if (detect_get_gold_button) {
-                detect_get_gold_button.parent().click()
+                detect_get_gold_button.click()
                 console.log("进入黄金票页面")
                 sleep(2000)
                 // TODO：实现点击「猜涨」按钮并不影响后续的操作
