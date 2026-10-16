@@ -64,14 +64,14 @@ function getDailyGoldBill() {
             sleep(2000)
             // let detect_get_gold_button = common.detectWidgetItem("text", "黄金票", "none", "normal")
             let detect_get_gold_welfare_button = common.detectWidgetItem("text", "黄金福利", "none", "normal")
-            // 寻找同级顺延第二个控件
+            // 寻找同级顺延第一个控件
             let detect_get_gold_button = null
             if (detect_get_gold_welfare_button) {
                 let parent_children = detect_get_gold_welfare_button.parent().children()
                 for (let i = 0; i < parent_children.length; i++) {
                     if (parent_children[i].text() == detect_get_gold_welfare_button.text()) {
                         if (i + 2 < parent_children.length) {
-                            detect_get_gold_button = parent_children[i + 2]
+                            detect_get_gold_button = parent_children[i + 1]
                         }
                         break
                     }
